@@ -117,9 +117,9 @@ class MF_Loading extends MF_EVENT.EventDispatcher{
                     }
 
                     if (!MF_display_Judger.isAndroid||_LDobj.type!="video"){
-                        _LDobj.e.addEventListener("canplaythrough", function(){
-                            _LDobj.status=1;
-                            this.removeLD(_LDobj);
+                        _LDobj.e.addEventListener("canplaythrough", (e)=>{
+                                _LDobj.status=1;
+                                this.removeLD(_LDobj);
                         });
                     }
                 }

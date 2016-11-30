@@ -4,13 +4,8 @@
     "target": "es5",
     "sourceMap": true,
     "removeComments": true,
-    "out": "lib/vfile.js"
+    "out": "lib/monkey.js"
   },
-  "files": [
-    "core/Event.ts",
-    "core/EventDispatcher.ts",
-    "utils/MF_VFILE.ts"
-  ],
   "exclude": [
     "node_modules"
   ]
