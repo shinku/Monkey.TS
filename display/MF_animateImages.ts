@@ -70,6 +70,7 @@ class MF_animateImages extends MF_EVENT.EventDispatcher implements anmBasic{
     };
 
     constructor(p:any=null){
+
         super();
         //if(!p) return ;
         //{imgList:[],parents:'',type:'',step:'',times:'',loop:''}
@@ -85,9 +86,9 @@ class MF_animateImages extends MF_EVENT.EventDispatcher implements anmBasic{
 
         this.anmtList=this.parameter.imgList;
         this.type=this.parameter.type?this.parameter.type:"canvas";
-        this.step=this.parameter.step;
-        this.times=this.parameter.times;
-        this.loop=this.parameter.loop;
+        this.step=this.parameter.step || 1;
+        this.times=this.parameter.times || 100;
+        this.loop=this.parameter.loop || false;
     }
 
     public toProgress(n:number):void{//设置播放进度

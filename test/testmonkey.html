@@ -1,17 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
+<script src="../lib/monkey.js"></script>
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body onload="init()">
+<div id="TEST" style="width: 600px; height: 600px">
 
+</div>
 </body>
-<script src="../lib/monkey.js"></script>
+
+
 <script>
     function init()
     {
-        MF_VFILE.getInstance().onEvent('fileloaded',function(e){
+      /*  MF_VFILE.getInstance().onEvent('fileloaded',function(e){
             console.log(e.data);
         });
         document.onclick=function(e){
@@ -30,10 +34,57 @@
         })(MF_EVENT.EventDispatcher);
         var aaaa=new A();
         console.log(aaaa);
+*/
+
+
+        //初始化loading对象
+        var loading=new MF_Loading({
+            LDpage:false,
+            LDup:handleLoading,
+            LDsuccess:handleLoaded,
+            LDtween:false
+        });
+        //新建序列化对象数组，用于存放序列帧序列
+        var sheetarr= loading.addImgSheet({
+            imgPrefix:'imgs/homepage/_homepage_',
+            imgType:'jpg',
+            start:45,
+            length:80,
+            step:2,
+            mask:'000'
+        });
+//定义该序列帧加载的loading 函数
+        function handleLoading(e){
+            console.log("loading "+e+"%");
+        };
+//定义该序列帧加载的loaded 函数
+        function handleLoaded(e){
+            console.log('liaded');
+            initAnimation();//加载完成后初始化动画
+        };
+        function initAnimation(){
+            //新建动画对象，动画在canvas上实现，动画元素的父级对象为id为showAni的dom元素；序列帧数组为sheetarr
+            var sprite=new MF_animateSheet({
+                parents:document.getElementById("TEST"),
+                type:"canvas",
+                width:640,
+                height:1080,
+                imgList:sheetarr,
+                times:140
+            });
+            sprite.play();
+        }
+        loading.start();
+
+
+
 
     };
    // console.log( MF_VFILE.getInstance());
 
+    var loading=new MF_Loading({
+
+    });
 
 </script>
 </html>
