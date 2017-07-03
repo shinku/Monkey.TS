@@ -13,7 +13,32 @@
 
 
 <script>
+
+
     function init()
+    {
+        var fc=new MF_FACETOUCH('TEST');
+        //单点移动
+        fc.addEventListener('tapmove',handleMove);
+        function handleMove(e)
+        {
+            console.log(e.data);
+        }
+        //滑屏手势终止
+        fc.addEventListener('tapend',handleEnd);
+        function handleEnd(e){
+            console.log('end');
+            console.log(e.data);
+        };
+        //旋转以及缩放
+        fc.addEventListener('taproate',handleRotate);
+        function handleRotate(e)
+        {
+            console.log('rotate');
+            console.log(e.data);
+        }
+    }
+    function _init()
     {
       /*  MF_VFILE.getInstance().onEvent('fileloaded',function(e){
             console.log(e.data);

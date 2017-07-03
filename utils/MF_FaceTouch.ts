@@ -21,11 +21,12 @@ class MF_FACETOUCH extends MF_EVENT.EventDispatcher{
 
     private initEvent()
     {
-        this.element.addEventListener(MF_DEVICECENTER.TOUCH_START,this.handleTouchBegin);
-        this.element.addEventListener(MF_DEVICECENTER.TOUCH_MOVE,this.handleTouchMove);
-        this.element.addEventListener(MF_DEVICECENTER.TOUCH_END,this.handleTouchEnd);
+        this.element.addEventListener(MF_DEVICECENTER.TOUCH_START,(e)=>{this.handleTouchBegin(e)});
+        this.element.addEventListener(MF_DEVICECENTER.TOUCH_MOVE,(e)=>{this.handleTouchMove(e)});
+        this.element.addEventListener(MF_DEVICECENTER.TOUCH_END,(e)=>{this.handleTouchEnd(e)});
+        var element:HTMLElement=this.element;
         document.addEventListener(MF_DEVICECENTER.TOUCH_END,function(){
-            this.element.removeEventListener(MF_DEVICECENTER.TOUCH_MOVE,this.handleTouchMove);
+            element.removeEventListener(MF_DEVICECENTER.TOUCH_MOVE,this.handleTouchMove);
         });
     };
     private handleTouchBegin(e:any)
