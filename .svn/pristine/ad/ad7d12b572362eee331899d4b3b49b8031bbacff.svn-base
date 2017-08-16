@@ -13,9 +13,9 @@ class MF_FACETOUCH extends MF_EVENT.EventDispatcher{
     private lastp:any;
     private lastdis:number=0;
     private lastrotation:number=0;
-    constructor(targetname:any) {
+    constructor(targetname:string) {
         super();
-        this.element=document.getElementById(targetname) || targetname  || document.body;
+        this.element=document.getElementById(targetname) || document.body;
         this.initEvent();
     };
 

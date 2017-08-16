@@ -1,110 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
 <script src="../lib/monkey.js"></script>
-<meta name="viewport" content="width=750"/>
-
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <style>
-        *{
-            margin: 0 0 ;
-        }
-        .ccc{
-            width: 50px;
-            height: 50px;
-            background: burlywood;
-            position: absolute;
-            top: 0px;
-            left: 0px;
-        }
-        html{
-            width: 750px;
-            overflow: hidden;
-        }
-        body{
-            width: 750px;
-            overflow: hidden;
-                 }
-        .scale,.rotation{
-            width: 100%;
-            height: 50px;
-            text-align: center;
-            background: #000;
-            color: #fff;
-            margin-top: 20px;
-        }
-        .debug{
-            width: 100%;
-            height: 30px;
-        }
-    </style>
 </head>
-<body >
-<div id="TEST" style="width: 100%; height: 600px"  ph_name="testtts">
+<body onload="init()">
+<div id="TEST" style="width: 600px; height: 600px">
+
 </div>
-<div ph_name="zoom" class="scale">+</div>
-<div ph_name="narrow" class="scale">-</div>
-<div ph_name="left" class="rotation">LEFT</div>
-<div ph_name="right" class="rotation">RIGHT</div>
-
-
-<div id="test2" style="width: 100%; height: 50px; background: #f99; text-align: center" ph_name="submit">上传</div>
-<div id="test23" style="width: 100%; height: 50px; background: #f99; text-align: center" ph_name="showImage">获取canvas</div>
-<img src="" width="750" height="600" ph_name="debugimg">
-
-
 </body>
 
-<script src="index.js"></script>
+
 <script>
 
-    PH_LAB.setGlobal();
-    console.log(PH_LAB);
-    var x=0;
-    var y=0;
-    var all={
-        imgs:null,
-    }
 
-    function clickTest(){
-
-        all.imgs.load();
-    }
     function init()
     {
-
-
-        all.imgs=new MF_ImageScrollControler(document.getElementById('TEST'),750,600);
-
-        submit.bind('click',function(){
-            //console.log(123);
-            clickTest();
-        });
-        zoom.bind('click',function(){
-            all.imgs.scale+=0.1;
-
-        });
-        narrow.bind('click',function(){
-            all.imgs.scale-=0.1;
-        });
-        left.bind('click',function(){
-            all.imgs.rotation+=3;
-        });
-        right.bind('click',function(){
-            all.imgs.rotation-=3;
-        });
-
-
-        showImage.bind('click',function(){
-            debugimg.src=all.imgs.pngData;
-        })
-
-
-
-
-
-
+        var fc=new MF_FACETOUCH('TEST');
+        //单点移动
+        fc.addEventListener('tapmove',handleMove);
+        function handleMove(e)
+        {
+            console.log(e.data);
+        }
+        //滑屏手势终止
+        fc.addEventListener('tapend',handleEnd);
+        function handleEnd(e){
+            console.log('end');
+            console.log(e.data);
+        };
+        //旋转以及缩放
+        fc.addEventListener('taproate',handleRotate);
+        function handleRotate(e)
+        {
+            console.log('rotate');
+            console.log(e.data);
+        }
     }
     function _init()
     {
@@ -178,7 +110,6 @@
     var loading=new MF_Loading({
 
     });
-    init();
 
 </script>
 </html>

@@ -1,0 +1,153 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>MF_PackInterface使用文档</title>
+<style>
+*{ margin:0; padding:0;}
+body{ line-height:1.4em;}
+#content{ width:100%; max-width:1003px; padding:20px; margin:0 auto;}
+.clear{ clear:both;}
+h1{ text-align:center; padding:20px;}
+h2{ line-height:1.5em; margin-top:20px;}
+p{ line-height:1.5em;}
+table td,table th{ line-height:1.4em; background-color:#fff; text-indent:15px; padding:5px;}
+table,table th{ background-color:#e8e8e8;}
+</style>
+</head>
+
+<body>
+<div id="content">
+<h1>MF_PackInterface使用文档</h1>
+
+<h2>简介：</h2>
+<p>
+MF_PackInterface.js由MF_PackInterface.ts编译而来.<br/>MF_PackInterface.ts依赖于:<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;EventDispatcher.ts,<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;Event.ts,<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;MF_UTILS.ts<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;MF_DoAjax.ts<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;MF_NET.ts<br/>
+</p>
+<h2>功能：</h2>
+<p>实现普通事件请求，及ajax请求；</p>
+<h2>使用方法：</h2>
+<p>
+1.	事件名称及接口请求相关信息注册；<br/>
+例如：<br/>
+<span style="background-color:#e8e8e8;">
+MF_NET.reg('getCodes',{<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;url:'/server.ashx'<br/>
+});<br/>
+	MF_NET.reg('getCodes2',{});<br/>
+</span>
+<div class="clear"></div>
+<br/>
+例子中注册了两个接口声明（"getCodes"和"getCodes2"）;<br/>
+<br/>
+<table width="100%" border="0" cellpadding="0" cellspacing="1">
+  <tbody>
+  	<tr>
+    	<th align="left" width="150">参数名</th>
+        <th align="left">参数说明</th>
+        <th align="left">是否必需</th>
+    </tr>
+    <tr>
+      <td bgcolor="#ffffff">url:</td>
+      <td>ajax请求接口地址</td>
+      <td>YES</td>
+    </tr>
+    <tr>
+      <td>data:</td>
+      <td>ajax请求接口传递的参数</td>
+      <td>NO</td>
+    </tr>
+    <tr>
+      <td>dataStringify:</td>
+      <td>传递的data参数是否需转成string类型； true为需要转换；默认：false,</td>
+      <td>NO</td>
+    </tr>
+    <tr>
+      <td>successDecode:</td>
+      <td>请求成功返回的data数据是否需要html_decode转译； true为需要转换；默认：false,</td>
+      <td>NO</td>
+    </tr>
+    <tr>
+      <td>注：</td>
+      <td>其他参数可以参考jquery ajax</td>
+      <td>&nbsp;</td>
+    </tr>
+  </tbody>
+</table>
+<br/>
+2. 初始化MF_PackInterface对象<br/>
+<strong>&nbsp;&nbsp;&nbsp;&nbsp;var app = new MF_PackInterface();</strong><br/>
+<br/>
+3.监听已注册的事件<br/>
+<strong>&nbsp;&nbsp;&nbsp;app.addEventListener('getCodes',fn2);</strong><br/>
+<br/>
+<table width="100%" border="0"  cellpadding="0" cellspacing="1">
+  <tbody>
+  	<tr>
+    	<th align="left" width="150">参数名</th>
+        <th align="left">参数说明</th>
+    </tr>
+    <tr>
+      <td>getCodes:</td>
+      <td>已注册事件名</td>
+    </tr>
+    <tr>
+      <td>fn2:</td>
+      <td>事件执行的回调函数</td>
+    </tr>
+  </tbody>
+</table>
+<br/>
+3. 执行已监听的事件<br/>
+<span style="background-color:#e8e8e8;">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;var data = {<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;openid:"o5Ph1jowYPZL6mRZ2bhncGZRwc81"<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;};<br/>
+</span>
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;data可以重新附值，覆盖appUrlConfig中的data数据；<br/>
+	<strong>app.callInterface("getCodes",data);</strong><br/>
+    <br/>
+4.当不需要某个注册事件时，可以销毁；<br/>
+<strong>app.removeEventListener("getCodes",fn2)</strong>;
+<br/>
+<br/>
+5.多个事件可以监听一个函数,通过事件名称索引到对应回调函数<br/>
+例如：<br/>
+<span style="background-color:#e8e8e8;">
+function fn2(e){<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;switch(e.type)<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;{<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;case 'getCodes':<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;console.log(e.data);<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;break;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;case 'getCodes2':<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;console.log("2");<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;break;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;}<br/>
+};<br/>
+</span>
+<br/>
+6.MF_PackInterface提供一个初始化ajax参数方法<br/>
+例如：<br/>
+app.initDefaultsOpts({<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;type:"GET",<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;dataType:"text",<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;error:function(e){<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;console.log(e);<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;alert("程序错误")<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;}<br/>
+});<br/>
+</p>
+<br/>
+<br/>
+<br/>
+<br/>
+<p>文档跟新时间2016.6.20</p>
+</div>
+</body>
+</html>

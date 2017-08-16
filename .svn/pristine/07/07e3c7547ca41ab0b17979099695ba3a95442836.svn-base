@@ -69,411 +69,6 @@ var __extends = (this && this.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-var EventDispatcher = MF_EVENT.EventDispatcher;
-var MF_VFILE = (function (_super) {
-    __extends(MF_VFILE, _super);
-    function MF_VFILE() {
-        var _this = this;
-        _super.call(this);
-        if (window.hasOwnProperty('File') && window.hasOwnProperty('FileReader') && window.hasOwnProperty('FileList') && window.hasOwnProperty('Blob')) {
-            console.log("Great success! All the File APIs are supported.");
-        }
-        else {
-            console.log('The File APIs are not fully supported in this browser.');
-            alert("你使用的浏览器不支持文件本地上传。请更新你的浏览器");
-            return;
-        }
-        ;
-        this.input = document.createElement('input');
-        this.input.type = 'file';
-        this.input.onchange = function (e) {
-            _this.fileSelect(e);
-        };
-        this.file = new FileReader();
-        this.file.onload = function (e) {
-            _this.dispatchEvent(new MF_EVENT.Event('fileloaded', e.target.result));
-        };
-    }
-    MF_VFILE.getInstance = function () {
-        if (!MF_VFILE.instance) {
-            MF_VFILE.instance = new MF_VFILE();
-        }
-        return MF_VFILE.instance;
-    };
-    MF_VFILE.prototype.fileSelect = function (e) {
-        var targe = e.target || window.event.srcElement;
-        var filedata = this.input.files[0];
-        if (!filedata) {
-            console.log('没有选择文件');
-            this.dispatchEvent(new MF_EVENT.Event('error', 'null'));
-            return;
-        }
-        else {
-            this.file.readAsDataURL(filedata);
-            console.log('载入VFILE资源');
-        }
-    };
-    MF_VFILE.prototype.loadFile = function () {
-        console.log(this.input);
-        if (document.all) {
-            this.input.click();
-        }
-        else {
-            var e = document.createEvent('MouseEvents');
-            e.initEvent('click', true, true);
-            this.input.dispatchEvent(e);
-        }
-    };
-    return MF_VFILE;
-})(MF_EVENT.EventDispatcher);
-var MF_Canvas = (function (_super) {
-    __extends(MF_Canvas, _super);
-    function MF_Canvas() {
-        _super.call(this);
-        this._scale = 1;
-        this.offsetscale = 0;
-        this._x = 0;
-        this._y = 0;
-        this.offsetx = 0;
-        this.offsety = 0;
-        this._rotate = 0;
-        this.offsetrotate = 0;
-        this.imgPosition = {};
-        this.canvas = document.createElement('canvas');
-        this.context = this.canvas.getContext('2d');
-    }
-    MF_Canvas.prototype.draw = function (imgdata) {
-        this.imgdate = imgdata;
-        this.doDraw();
-    };
-    MF_Canvas.prototype.doDraw = function () {
-        var imgdata = this.imgdate;
-        var w = imgdata.width;
-        var h = imgdata.height;
-        var cw = this.canvas.width;
-        var ch = this.canvas.height;
-        this.imgPosition.width = cw;
-        this.imgPosition.height = ch;
-        this.context.setTransform(1, 0, 0, 1, 0, 0);
-        this.context.drawImage(imgdata, 0, 0, w, h, 0, 0, cw, ch);
-    };
-    MF_Canvas.prototype.update = function () {
-        var imgdata = this.imgdate;
-        var w = imgdata.width;
-        var h = imgdata.height;
-        var cw = this.canvas.width;
-        var ch = this.canvas.height;
-        this.clear();
-        this.context.globalCompositeOperation = 'copy';
-        this.context.drawImage(imgdata, 0, 0, w, h, 0, 0, cw, ch);
-        this.offsetrotate = this.offsetscale = this.offsetx = this.offsety = 0;
-    };
-    MF_Canvas.prototype.clear = function () {
-        this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
-    };
-    Object.defineProperty(MF_Canvas.prototype, "scale", {
-        get: function () {
-            return this._scale;
-        },
-        set: function (val) {
-            this.offsetscale = val - this._scale;
-            this._scale = val;
-            this.clear();
-            var w = this.imgPosition.width * (this.offsetscale + 1);
-            var h = this.imgPosition.height * (this.offsetscale + 1);
-            this.context.transform(this.offsetscale + 1, 0, 0, this.offsetscale + 1, -this.offsetscale * this.imgPosition.width / 2, -this.offsetscale * this.imgPosition.height / 2);
-            this.update();
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(MF_Canvas.prototype, "x", {
-        get: function () {
-            return this._x;
-        },
-        set: function (val) {
-            this.offsetx = val - this._x;
-            this._x = val;
-            this.clear();
-            var offset = this.roateAnglePosition(this.offsetx / this._scale, 0, -this.rotation / 180 * Math.PI);
-            this.context.transform(1, 0, 0, 1, offset.ofx, offset.ofy);
-            this.update();
-        },
-        enumerable: true,
-        configurable: true
-    });
-    MF_Canvas.prototype.roateAnglePosition = function (x, y, angle) {
-        var x1 = Math.cos(angle) * x - Math.sin(angle) * y;
-        var y1 = Math.cos(angle) * y + Math.sin(angle) * x;
-        return { ofx: x1, ofy: y1 };
-    };
-    Object.defineProperty(MF_Canvas.prototype, "y", {
-        get: function () {
-            return this._y;
-        },
-        set: function (val) {
-            this.offsety = val - this._y;
-            this._y = val;
-            this.clear();
-            var offset = this.roateAnglePosition(0, this.offsety / this._scale, -this.rotation / 180 * Math.PI);
-            this.context.transform(1, 0, 0, 1, offset.ofx, offset.ofy);
-            this.update();
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(MF_Canvas.prototype, "rotation", {
-        get: function () {
-            return this._rotate;
-        },
-        set: function (val) {
-            this.offsetrotate = (val - this._rotate) / 180 * Math.PI;
-            this._rotate = val;
-            this.clear();
-            var w = this.imgPosition.width * (this.offsetscale + 1);
-            var h = this.imgPosition.height * (this.offsetscale + 1);
-            this.context.translate(this.canvas.width / 2, this.canvas.height / 2);
-            this.context.rotate(this.offsetrotate);
-            this.context.translate(-this.canvas.width / 2, -this.canvas.height / 2);
-            this.clear();
-            this.update();
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(MF_Canvas.prototype, "myCanvas", {
-        get: function () {
-            return this.canvas;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    MF_Canvas.prototype.setStyle = function (type, value) {
-        this.canvas.style[type] = value;
-        if (type == 'width') {
-            var ww = parseFloat(value.replace('px', ''));
-            this.canvas.width = ww;
-        }
-        if (type == 'height') {
-            var hh = parseFloat(value.replace('px', ''));
-            this.canvas.height = hh;
-        }
-    };
-    MF_Canvas.prototype.getCanvasData = function (type, encoderOptions) {
-        if (encoderOptions === void 0) { encoderOptions = 1; }
-        return this.canvas.toDataURL(type, encoderOptions);
-    };
-    MF_Canvas.canvasLabs = {};
-    return MF_Canvas;
-})(MF_EVENT.EventDispatcher);
-var MF_UTILS = (function () {
-    function MF_UTILS() {
-    }
-    MF_UTILS.setCookie = function (name, value, time) {
-        if (time === void 0) { time = 60000; }
-        var time = time || 60000;
-        var exp = new Date();
-        exp.setTime(exp.getTime() + time);
-        document.cookie = name + "=" + encodeURI(value) + ";expires=" + exp.toUTCString();
-    };
-    MF_UTILS.getCookie = function (name) {
-        var arr, reg = new RegExp("(^| )" + name + "=([^;]*)(;|$)");
-        if (arr = document.cookie.match(reg))
-            return decodeURI(arr[2]);
-        else
-            return null;
-    };
-    MF_UTILS.removeCookie = function (name) {
-        MF_UTILS.setCookie(name, '', -1000);
-    };
-    MF_UTILS.getQuest = function (name) {
-        var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i');
-        var r = window.location.search.substr(1).match(reg);
-        if (r != null) {
-            return r[2];
-        }
-        return null;
-    };
-    MF_UTILS.isTel = function (tel) {
-        return (/^1[3|4|5|8] \d{9}$/).test(tel);
-    };
-    MF_UTILS.discribeObject = function (object, bet) {
-        if (bet === void 0) { bet = ""; }
-        var str = "";
-        if (!bet)
-            bet = "";
-        for (var o in object) {
-            str += bet + o + ":";
-            if (object[o] instanceof Array) {
-                str += "[";
-                str += object[o];
-                str += "]" + "\n";
-            }
-            else if (object[o] instanceof Object) {
-                var nbet = bet + "  ";
-                str += "{\n";
-                str += this.discribeObject(object[o], nbet);
-                str += nbet + "}" + "\n";
-            }
-            else {
-                str += object[o] + "\n";
-            }
-        }
-        return str;
-    };
-    MF_UTILS.html_decode = function (str) {
-        var s = "";
-        if (str.length == 0)
-            return "";
-        s = str.replace(/&gt;/g, "&");
-        s = s.replace(/&lt;/g, "<");
-        s = s.replace(/&gt;/g, ">");
-        s = s.replace(/&nbsp;/g, " ");
-        s = s.replace(/&#39;/g, "\'");
-        s = s.replace(/&quot;/g, "\"");
-        s = s.replace(/<br>/g, "\n");
-        return s;
-    };
-    MF_UTILS.catact = function (a, b) {
-        for (var key in b) {
-            if (typeof b[key] == "Object") {
-                arguments.callee(a[key], b[key]);
-            }
-            else {
-                a[key] = b[key];
-            }
-        }
-        return a;
-    };
-    MF_UTILS.getStyleWidth = function (div) {
-        var style = div.style['width'];
-        return style;
-    };
-    MF_UTILS.getStyleHeight = function (div) {
-        var style = div.style['height'];
-        return style;
-    };
-    MF_UTILS.getStyleTop = function (div) {
-        var style = div.style['top'];
-        return style;
-    };
-    MF_UTILS.getStyleLeft = function (div) {
-        var style = div.style['left'];
-        return style;
-    };
-    return MF_UTILS;
-})();
-var MF_ImageScroller = (function (_super) {
-    __extends(MF_ImageScroller, _super);
-    function MF_ImageScroller(_boxnametag, width, height) {
-        var _this = this;
-        if (typeof _boxnametag == 'string') {
-            this.box = document.getElementById(_boxnametag);
-        }
-        else if (_boxnametag['tagName']) {
-            this.box = _boxnametag;
-        }
-        this.mf_canvas = new MF_Canvas();
-        this.img = new Image();
-        this.img.onload = function (e) { _this.handleImageLoaded(e); };
-        this.mf_canvas.setStyle('width', width + "px");
-        this.mf_canvas.setStyle('height', height + "px");
-        this.box.appendChild(this.mf_canvas.myCanvas);
-        _super.call(this);
-    }
-    Object.defineProperty(MF_ImageScroller.prototype, "x", {
-        get: function () {
-            return this.mf_canvas.x;
-        },
-        set: function (val) {
-            this.mf_canvas.x = val;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(MF_ImageScroller.prototype, "y", {
-        get: function () {
-            return this.mf_canvas.y;
-        },
-        set: function (val) {
-            this.mf_canvas.y = val;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(MF_ImageScroller.prototype, "scale", {
-        get: function () {
-            return this.mf_canvas.scale;
-        },
-        set: function (val) {
-            this.mf_canvas.scale = val;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(MF_ImageScroller.prototype, "rotation", {
-        get: function () {
-            return this.mf_canvas.rotation;
-        },
-        set: function (val) {
-            this.mf_canvas.rotation = val;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    MF_ImageScroller.prototype.load = function () {
-        var _this = this;
-        MF_VFILE.getInstance().addEventListener('fileloaded', function (e) {
-            _this.handleFileLoaded(e);
-        });
-        MF_VFILE.getInstance().loadFile();
-    };
-    MF_ImageScroller.prototype.handleImageLoaded = function (e) {
-        this.mf_canvas.draw(this.img);
-    };
-    MF_ImageScroller.prototype.handleFileLoaded = function (e) {
-        console.log(e);
-        this.img.src = e.data;
-    };
-    Object.defineProperty(MF_ImageScroller.prototype, "pngData", {
-        get: function () {
-            return this.mf_canvas.getCanvasData('image/png');
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(MF_ImageScroller.prototype, "JpgData", {
-        get: function () {
-            return this.mf_canvas.getCanvasData('image/jpeg');
-        },
-        enumerable: true,
-        configurable: true
-    });
-    return MF_ImageScroller;
-})(MF_EVENT.EventDispatcher);
-var MF_ImageScrollControler = (function (_super) {
-    __extends(MF_ImageScrollControler, _super);
-    function MF_ImageScrollControler(parenttagname, width, height) {
-        var _this = this;
-        _super.call(this, parenttagname, width, height);
-        this.fc = new MF_FACETOUCH(this.box);
-        this.fc.addEventListener('tapmove', function (e) {
-            _this.handleMove(e.data);
-        });
-        this.fc.addEventListener('taprotate', function (e) {
-            _this.handleRotate(e.data);
-        });
-    }
-    MF_ImageScrollControler.prototype.handleMove = function (offset) {
-        this.x -= offset.offsetx;
-        this.y -= offset.offsety;
-    };
-    MF_ImageScrollControler.prototype.handleRotate = function (offset) {
-        this.scale += offset.scale;
-        this.rotation += offset.angle;
-    };
-    return MF_ImageScrollControler;
-})(MF_ImageScroller);
 var MF_Loading = (function (_super) {
     __extends(MF_Loading, _super);
     function MF_Loading(p) {
@@ -584,7 +179,6 @@ var MF_Loading = (function (_super) {
         var s = this;
         for (var m = 0; m < s.list.length; m++) {
             (function () {
-                var _this = this;
                 var n = m;
                 var _LDobj = s.list[m];
                 _LDobj.status = 0;
@@ -609,9 +203,9 @@ var MF_Loading = (function (_super) {
                         }
                     }
                     if (!MF_display_Judger.isAndroid || _LDobj.type != "video") {
-                        _LDobj.e.addEventListener("canplaythrough", function (e) {
+                        _LDobj.e.addEventListener("canplaythrough", function () {
                             _LDobj.status = 1;
-                            _this.removeLD(_LDobj);
+                            s.removeLD(_LDobj);
                         });
                     }
                 }
@@ -641,7 +235,6 @@ var MF_Loading = (function (_super) {
     MF_Loading.prototype.upDate = function (val) {
         if (this.loadUp)
             this.loadUp(val);
-        this.loadingpercent = val;
         this.dispatchEvent(new MF_EVENT.Event("update", val));
     };
     ;
@@ -688,13 +281,10 @@ var MF_Loading = (function (_super) {
         }
     };
     ;
-    MF_Loading.prototype.addImgSheet = function (arg) {
-        var _list = [];
-        var mask = arg.mask || "";
-        for (var i = arg.start; i <= arg.length; i += arg.step) {
-            var findex = mask + i;
-            findex = findex.substr(findex.length - mask.length);
-            _list.push({ type: "img", src: arg.imgPrefix + findex + "." + arg.imgType });
+    MF_Loading.prototype.addImgSheet = function () {
+        var arg = arguments[0], _list = [];
+        for (var i = arg.start; i < arg.length; i += arg.step) {
+            _list.push({ type: "img", src: arg.imgPrefix + (i < 10 ? "0" + i : i) + "." + arg.imgType });
         }
         ;
         return this.setAddList(_list);
@@ -734,7 +324,6 @@ var MF_Loading = (function (_super) {
 var MF_animateImages = (function (_super) {
     __extends(MF_animateImages, _super);
     function MF_animateImages(p) {
-        if (p === void 0) { p = null; }
         _super.call(this);
         this.ITV = null;
         this.startIndex = 0;
@@ -743,6 +332,7 @@ var MF_animateImages = (function (_super) {
         this.rmsPrefix = /^-ms-/;
         this.rdashAlpha = /-([\da-z])/gi;
         this.cssPrefixes = ["Webkit", "O", "Moz", "ms"];
+        this.parameter = p;
         if (this.parameter.imgList.length > 0) {
             this.width = this.parameter.width ? this.parameter.width : this.parameter.imgList[0].width;
             this.height = this.parameter.height ? this.parameter.height : this.parameter.imgList[0].height;
@@ -753,9 +343,9 @@ var MF_animateImages = (function (_super) {
             this.parents = this.parameter.parents[0];
         this.anmtList = this.parameter.imgList;
         this.type = this.parameter.type ? this.parameter.type : "canvas";
-        this.step = this.parameter.step || 1;
-        this.times = this.parameter.times || 100;
-        this.loop = this.parameter.loop || false;
+        this.step = this.parameter.step;
+        this.times = this.parameter.times;
+        this.loop = this.parameter.loop;
     }
     MF_animateImages.prototype.drawImages = function (n) { };
     ;
@@ -903,62 +493,6 @@ var MF_animateImages = (function (_super) {
     ;
     return MF_animateImages;
 })(MF_EVENT.EventDispatcher);
-var MF_display_Judger = (function () {
-    function MF_display_Judger() {
-    }
-    ;
-    MF_display_Judger.isAndroid = function () { return /(Android)/i.test(navigator.userAgent); };
-    ;
-    MF_display_Judger.isDom = function (e) {
-        if (typeof (e) == "object" && e instanceof HTMLElement) {
-            return true;
-        }
-        return false;
-    };
-    ;
-    MF_display_Judger.isJQ = function (e) {
-        if (typeof (e) == "object" && e instanceof jQuery) {
-            return true;
-        }
-        return false;
-    };
-    ;
-    MF_display_Judger.isLdDom = function (e) {
-        if (typeof (e) == "object" && e instanceof HTMLElement) {
-            var type = e.nodeName.toLowerCase();
-            if (type == "img" || type == "video" || type == "audio") {
-                return true;
-            }
-        }
-        return false;
-    };
-    ;
-    MF_display_Judger.isLdCompleteList = function (e) {
-        if (typeof (e) == "object" && "sort" in e) {
-            var _obj = e[0];
-            if ("src" in _obj && "e" in _obj) {
-                return true;
-            }
-        }
-        return false;
-    };
-    ;
-    MF_display_Judger.getDomType = function (e) {
-        return e.nodeName.toLowerCase();
-    };
-    ;
-    MF_display_Judger.getImgList = function (_list) {
-        var _imgList = new Array();
-        for (var vals in _list) {
-            var _obj = _list[vals];
-            if ("src" in _obj && "e" in _obj)
-                _imgList.push(_obj.e);
-        }
-        return _imgList;
-    };
-    ;
-    return MF_display_Judger;
-})();
 var MF_animateSheet = (function (_super) {
     __extends(MF_animateSheet, _super);
     function MF_animateSheet(p) {
@@ -976,41 +510,29 @@ var MF_animateSheet = (function (_super) {
             this.canvas.width = this.width;
             this.canvas.height = this.height;
             this.parents.appendChild(this.canvas);
+            var ctx = this.canvas.getContext("2d");
+            this.drawImages = function (n) {
+                this.clear();
+                ctx.drawImage(this.anmtList[n], 0, 0);
+            };
+            this.clear = function () {
+                ctx.clearRect(0, 0, this.width, this.height);
+            };
         }
         else if (this.type == "img") {
+            this.drawImages = function (n) {
+                this.clear();
+                this.parents.appendChild(this.anmtList[n]);
+            };
+            this.clear = function () {
+                while (this.parents.hasChildNodes()) {
+                    this.parents.removeChild(this.parents.firstChild);
+                }
+            };
         }
         this.endIndex = this.length;
         this.toProgress(this.progress);
     }
-    ;
-    MF_animateSheet.prototype.drawImages = function (n) {
-        switch (this.type) {
-            case 'img':
-                this.clear();
-                this.parents.appendChild(this.anmtList[n]);
-                break;
-            case 'canvas':
-                var ctx = this.canvas.getContext("2d");
-                this.clear();
-                var img = this.anmtList[n];
-                ctx.drawImage(img, 0, 0);
-                break;
-        }
-    };
-    ;
-    MF_animateSheet.prototype.clear = function () {
-        switch (this.type) {
-            case 'img':
-                while (this.parents.hasChildNodes()) {
-                    this.parents.removeChild(this.parents.firstChild);
-                }
-                break;
-            case 'canvas':
-                var ctx = this.canvas.getContext("2d");
-                ctx.clearRect(0, 0, this.width, this.height);
-                break;
-        }
-    };
     return MF_animateSheet;
 })(MF_animateImages);
 var MF_animateSprite = (function (_super) {
@@ -1074,6 +596,143 @@ var MF_animateSprite = (function (_super) {
     }
     return MF_animateSprite;
 })(MF_animateImages);
+var MF_display_Judger = (function () {
+    function MF_display_Judger() {
+    }
+    ;
+    MF_display_Judger.isAndroid = function () { return /(Android)/i.test(navigator.userAgent); };
+    ;
+    MF_display_Judger.isDom = function (e) {
+        if (typeof (e) == "object" && e instanceof HTMLElement) {
+            return true;
+        }
+        return false;
+    };
+    ;
+    MF_display_Judger.isJQ = function (e) {
+        if (typeof (e) == "object" && e instanceof jQuery) {
+            return true;
+        }
+        return false;
+    };
+    ;
+    MF_display_Judger.isLdDom = function (e) {
+        if (typeof (e) == "object" && e instanceof HTMLElement) {
+            var type = e.nodeName.toLowerCase();
+            if (type == "img" || type == "video" || type == "audio") {
+                return true;
+            }
+        }
+        return false;
+    };
+    ;
+    MF_display_Judger.isLdCompleteList = function (e) {
+        if (typeof (e) == "object" && "sort" in e) {
+            var _obj = e[0];
+            if ("src" in _obj && "e" in _obj) {
+                return true;
+            }
+        }
+        return false;
+    };
+    ;
+    MF_display_Judger.getDomType = function (e) {
+        return e.nodeName.toLowerCase();
+    };
+    ;
+    MF_display_Judger.getImgList = function (_list) {
+        var _imgList = new Array();
+        for (var vals in _list) {
+            var _obj = _list[vals];
+            if ("src" in _obj && "e" in _obj)
+                _imgList.push(_obj.e);
+        }
+        return _imgList;
+    };
+    ;
+    return MF_display_Judger;
+})();
+var MF_UTILS = (function () {
+    function MF_UTILS() {
+    }
+    MF_UTILS.setCookie = function (name, value, time) {
+        if (time === void 0) { time = 60000; }
+        var time = time || 60000;
+        var exp = new Date();
+        exp.setTime(exp.getTime() + time);
+        document.cookie = name + "=" + encodeURI(value) + ";expires=" + exp.toUTCString();
+    };
+    MF_UTILS.getCookie = function (name) {
+        var arr, reg = new RegExp("(^| )" + name + "=([^;]*)(;|$)");
+        if (arr = document.cookie.match(reg))
+            return decodeURI(arr[2]);
+        else
+            return null;
+    };
+    MF_UTILS.removeCookie = function (name) {
+        MF_UTILS.setCookie(name, '', -1000);
+    };
+    MF_UTILS.getQuest = function (name) {
+        var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i');
+        var r = window.location.search.substr(1).match(reg);
+        if (r != null) {
+            return r[2];
+        }
+        return null;
+    };
+    MF_UTILS.isTel = function (tel) {
+        return (/^1[3|4|5|8] \d{9}$/).test(tel);
+    };
+    MF_UTILS.discribeObject = function (object, bet) {
+        if (bet === void 0) { bet = ""; }
+        var str = "";
+        if (!bet)
+            bet = "";
+        for (var o in object) {
+            str += bet + o + ":";
+            if (object[o] instanceof Array) {
+                str += "[";
+                str += object[o];
+                str += "]" + "\n";
+            }
+            else if (object[o] instanceof Object) {
+                var nbet = bet + "  ";
+                str += "{\n";
+                str += this.discribeObject(object[o], nbet);
+                str += nbet + "}" + "\n";
+            }
+            else {
+                str += object[o] + "\n";
+            }
+        }
+        return str;
+    };
+    MF_UTILS.html_decode = function (str) {
+        var s = "";
+        if (str.length == 0)
+            return "";
+        s = str.replace(/&gt;/g, "&");
+        s = s.replace(/&lt;/g, "<");
+        s = s.replace(/&gt;/g, ">");
+        s = s.replace(/&nbsp;/g, " ");
+        s = s.replace(/&#39;/g, "\'");
+        s = s.replace(/&quot;/g, "\"");
+        s = s.replace(/<br>/g, "\n");
+        return s;
+    };
+    MF_UTILS.catact = function (a, b) {
+        for (var key in b) {
+            if (typeof b[key] == "Object") {
+                arguments.callee(a[key], b[key]);
+            }
+            else {
+                a[key] = b[key];
+            }
+        }
+        return a;
+    };
+    return MF_UTILS;
+})();
 var MF_DoAjax = (function (_super) {
     __extends(MF_DoAjax, _super);
     function MF_DoAjax() {
@@ -1328,18 +987,16 @@ var MF_FACETOUCH = (function (_super) {
         this.pointsnumber = 0;
         this.lastdis = 0;
         this.lastrotation = 0;
-        this.element = document.getElementById(targetname) || targetname || document.body;
+        this.element = document.getElementById(targetname) || document.body;
         this.initEvent();
     }
     ;
     MF_FACETOUCH.prototype.initEvent = function () {
-        var _this = this;
-        this.element.addEventListener(MF_DEVICECENTER.TOUCH_START, function (e) { _this.handleTouchBegin(e); });
-        this.element.addEventListener(MF_DEVICECENTER.TOUCH_MOVE, function (e) { _this.handleTouchMove(e); });
-        this.element.addEventListener(MF_DEVICECENTER.TOUCH_END, function (e) { _this.handleTouchEnd(e); });
-        var element = this.element;
+        this.element.addEventListener(MF_DEVICECENTER.TOUCH_START, this.handleTouchBegin);
+        this.element.addEventListener(MF_DEVICECENTER.TOUCH_MOVE, this.handleTouchMove);
+        this.element.addEventListener(MF_DEVICECENTER.TOUCH_END, this.handleTouchEnd);
         document.addEventListener(MF_DEVICECENTER.TOUCH_END, function () {
-            element.removeEventListener(MF_DEVICECENTER.TOUCH_MOVE, this.handleTouchMove);
+            this.element.removeEventListener(MF_DEVICECENTER.TOUCH_MOVE, this.handleTouchMove);
         });
     };
     ;
@@ -1461,47 +1118,60 @@ var MF_Point = (function () {
     }
     return MF_Point;
 })();
-var MF_TagManager = (function () {
-    function MF_TagManager() {
-    }
-    MF_TagManager.start = function () {
-        window.onhashchange = function (e) {
-            MF_TagManager.handleHash();
+var EventDispatcher = MF_EVENT.EventDispatcher;
+var MF_VFILE = (function (_super) {
+    __extends(MF_VFILE, _super);
+    function MF_VFILE() {
+        var _this = this;
+        _super.call(this);
+        if (window.hasOwnProperty('File') && window.hasOwnProperty('FileReader') && window.hasOwnProperty('FileList') && window.hasOwnProperty('Blob')) {
+            console.log("Great success! All the File APIs are supported.");
+        }
+        else {
+            console.log('The File APIs are not fully supported in this browser.');
+            alert("你使用的浏览器不支持文件本地上传。请更新你的浏览器");
+            return;
+        }
+        ;
+        this.input = document.createElement('input');
+        this.input.type = 'file';
+        this.input.onchange = function (e) {
+            _this.fileSelect(e);
         };
-        var _h = window.location.hash.replace(/#/, "");
-        var postTag = MF_TagManager.tags;
-        if (_h in postTag) {
-            var fun = postTag[_h]['funname'];
-            fun(postTag[_h]['a']);
+        this.file = new FileReader();
+        this.file.onload = function (e) {
+            _this.dispatchEvent(new MF_EVENT.Event('fileloaded', e.target.result));
+        };
+    }
+    MF_VFILE.getInstance = function () {
+        if (!MF_VFILE.instance) {
+            MF_VFILE.instance = new MF_VFILE();
+        }
+        return MF_VFILE.instance;
+    };
+    MF_VFILE.prototype.fileSelect = function (e) {
+        var targe = e.target || window.event.srcElement;
+        var filedata = this.input.files[0];
+        if (!filedata) {
+            console.log('没有选择文件');
+            this.dispatchEvent(new MF_EVENT.Event('error', 'null'));
+            return;
+        }
+        else {
+            this.file.readAsDataURL(filedata);
+            console.log('载入VFILE资源');
         }
     };
-    MF_TagManager.handleHash = function () {
-        var _h = window.location.hash.replace(/#/, "");
-        if (_h in MF_TagManager.tags) {
-            MF_TagManager.tags[_h]['funname'](MF_TagManager.tags[_h]['a']);
+    MF_VFILE.prototype.loadFile = function () {
+        if (document.all) {
+            this.input.click();
+        }
+        else {
+            var e = document.createEvent('MouseEvents');
+            e.initEvent('click', true, true);
+            this.input.dispatchEvent(e);
         }
     };
-    MF_TagManager.addTag = function (n, fn) {
-        var args = [];
-        for (var _i = 2; _i < arguments.length; _i++) {
-            args[_i - 2] = arguments[_i];
-        }
-        MF_TagManager.tags[n] = { 'funname': fn, a: args };
-    };
-    MF_TagManager.removeTag = function (n) {
-        var postTag = MF_TagManager.tags;
-        if (n in postTag) {
-            delete postTag[n];
-        }
-    };
-    MF_TagManager.configTag = function (n, fn) {
-        var args = [];
-        for (var _i = 2; _i < arguments.length; _i++) {
-            args[_i - 2] = arguments[_i];
-        }
-        MF_TagManager.addTag(n, fn, args);
-    };
-    MF_TagManager.tags = {};
-    return MF_TagManager;
-})();
+    return MF_VFILE;
+})(MF_EVENT.EventDispatcher);
 //# sourceMappingURL=monkey.js.map

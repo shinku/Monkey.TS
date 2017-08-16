@@ -55,7 +55,6 @@ class MF_VFILE  extends MF_EVENT.EventDispatcher{
     }
     public loadFile()
     {
-        console.log(this.input);
         if(document.all)
         {
             this.input.click();

@@ -15,7 +15,7 @@ class MF_DoAjax extends MF_EVENT.EventDispatcher{
         successDecode: false,
         success: function(){},
         error: function () {
-            alert('网络不给力，再试下吧！');
+            alert('网络不给力，再试下吧！')
         },
         complete: function(){}
     }

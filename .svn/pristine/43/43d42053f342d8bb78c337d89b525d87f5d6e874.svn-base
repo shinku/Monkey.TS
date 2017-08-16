@@ -86,21 +86,4 @@ class MF_UTILS {
         }
         return a;
     }
-    public static getStyleWidth(div:HTMLElement):string{
-        var style:string=div.style['width'];
-        return style;
-    }
-    public static getStyleHeight(div:HTMLElement):string{
-        var style:string=div.style['height'];
-        return style;
-    }
-    public static getStyleTop(div:HTMLElement):string
-    {
-        var style:string=div.style['top'];
-        return style;
-    }
-    public static getStyleLeft(div:HTMLElement):string{
-        var style:string=div.style['left'];
-        return style;
-    }
 }

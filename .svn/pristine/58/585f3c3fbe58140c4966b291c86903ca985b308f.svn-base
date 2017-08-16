@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body onload="init()">
+
+</body>
+<script src="../lib/monkey.js"></script>
+<script>
+    function init()
+    {
+        MF_VFILE.getInstance().onEvent('fileloaded',function(e){
+            console.log(e.data);
+        });
+        document.onclick=function(e){
+            MF_VFILE.getInstance().loadFile();
+        };
+
+    //JS版本继承EventDispatcher;
+        var A=(function(_super){
+            __extends(A,_super);
+            function A(){
+                var _this=this;
+                _super.call(this);
+                console.log('this is a');
+            };
+            return A;
+        })(MF_EVENT.EventDispatcher);
+        var aaaa=new A();
+        console.log(aaaa);
+
+    };
+   // console.log( MF_VFILE.getInstance());
+
+
+</script>
+</html>

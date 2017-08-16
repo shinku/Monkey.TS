@@ -1,5 +1,6 @@
 /**
  * Created by shin on 16/4/6.
+ * Created by shin
  */
 var gulp = require('gulp');
 //var uglify=require('gulp-uglify'),//混淆插件 //基础库
