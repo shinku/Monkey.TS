@@ -155,20 +155,7 @@ var MF_Canvas = (function (_super) {
         this.imgPosition.width = cw;
         this.imgPosition.height = ch;
         this.context.setTransform(1, 0, 0, 1, 0, 0);
-        this._x = this._y = this._rotate = 0;
-        this._scale = 1;
-        if (w / h > cw / ch) {
-            this.imgw = cw;
-            var sc = cw / w;
-            this.imgh = h * sc;
-            this.y = (ch - this.imgh) / 2;
-        }
-        else {
-            this.imgh = ch;
-            var sc = ch / h;
-            this.imgw = w * sc;
-            this.x = (cw - this.imgw) / 2;
-        }
+        this.context.drawImage(imgdata, 0, 0, w, h, 0, 0, cw, ch);
     };
     MF_Canvas.prototype.update = function () {
         var imgdata = this.imgdate;
@@ -178,7 +165,7 @@ var MF_Canvas = (function (_super) {
         var ch = this.canvas.height;
         this.clear();
         this.context.globalCompositeOperation = 'copy';
-        this.context.drawImage(imgdata, 0, 0, w, h, 0, 0, this.imgw, this.imgh);
+        this.context.drawImage(imgdata, 0, 0, w, h, 0, 0, cw, ch);
         this.offsetrotate = this.offsetscale = this.offsetx = this.offsety = 0;
     };
     MF_Canvas.prototype.clear = function () {

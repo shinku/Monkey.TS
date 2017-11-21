@@ -18,8 +18,6 @@ class MF_Canvas extends MF_EVENT.EventDispatcher{
     protected context:CanvasRenderingContext2D;
     protected imgdate:HTMLImageElement;
     protected imgPosition:any={};
-    protected imgw:number;
-    protected imgh:number;
     constructor() {
         super();
         this.canvas=document.createElement('canvas');
@@ -42,28 +40,7 @@ class MF_Canvas extends MF_EVENT.EventDispatcher{
         this.imgPosition.width=cw;
         this.imgPosition.height=ch;
         this.context.setTransform(1,0,0,1,0,0);
-        this._x=this._y=this._rotate=0;
-        this._scale=1;
-        if(w/h>cw/ch)
-        {
-            // 图片宽高比比容器宽高比多
-            this.imgw=cw;
-            var sc=cw/w;
-            this.imgh=h*sc;
-            this.y=(ch-this.imgh)/2;
-            //this.x=0;
-        }
-        else{
-            //
-            this.imgh=ch;
-            var sc=ch/h;
-            this.imgw=w*sc;
-           this.x=(cw-this.imgw)/2;
-            //this.y=0;
-            //this.context.drawImage(imgdata,0,0,w,h,0,0,this.imgw,this.imgh);
-        }
-        //this.context.drawImage(imgdata,0,0,w,h,0,0,this.imgw,this.imgh);
-        //this.context.drawImage(imgdata,0,0,w,h,0,0,cw,ch);
+        this.context.drawImage(imgdata,0,0,w,h,0,0,cw,ch);
     }
 
     /*
@@ -85,30 +62,8 @@ class MF_Canvas extends MF_EVENT.EventDispatcher{
         //this.context.translate(this.offsetx,this.offsety);
         this.clear();
         this.context.globalCompositeOperation='copy';
-
-        this.context.drawImage(imgdata,0,0,w,h,0,0,this.imgw,this.imgh);
+        this.context.drawImage(imgdata,0,0,w,h,0,0,cw,ch);
         this.offsetrotate=this.offsetscale=this.offsetx=this.offsety = 0;
-        /*if(w/h>cw/ch)
-        {
-            // 图片宽高比比容器宽高比多
-           this.imgw=cw;
-            var sc=cw/w;
-            this.imgh=ch*sc;
-            //this.context.drawImage(imgdata,0,0,w,h,0,0,this.imgw,this.imgh);
-            this.y=(w-this.imgh)
-        }
-        else{
-            //
-
-            this.imgh=ch;
-            var sc=ch/h;
-            this.imgw=cw*sc;
-            ///this.context.drawImage(imgdata,0,0,w,h,0,0,this.imgw,this.imgh);*/
-
-        //}
-
-        //this.context.drawImage(imgdata,0,0,w,h,0,0,cw,ch);
-
 
     }
     protected clear()
