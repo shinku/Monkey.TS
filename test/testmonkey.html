@@ -74,8 +74,24 @@
     function init()
     {
 
-
+        //https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3803730718,1493230642&fm=27&gp=0.jpg
         all.imgs=new MF_ImageScrollControler(document.getElementById('TEST'),750,600);
+        //资源加载完成事件
+        all.imgs.addEventListener('fileloaded',function(e){
+            console.log(e);
+            alert('file 资源加载完成')
+        });
+        var logo1=new Image();
+        var logo2=new Image();
+        logo1.src='http://www.lorealparis-mediacenter.com/Content/Front/loreal/images/logo_1.jpg';
+        logo2.src='https://gss3.bdstatic.com/7Po3dSag_xI4khGkpoWK1HF6hhy/baike/w%3D268%3Bg%3D0/sign=56eb97b16a59252da3171a020ca06406/ac6eddc451da81cbb6c9f6665866d01609243169.jpg';
+        //img.src='http://www.lorealparis-mediacenter.com/Content/Front/loreal/images/logo_1.jpg';
+        //img.onload=function(e){
+            //console.log('loaded');
+         //   all.imgs.addLayer(img,400,0);
+        //};
+        all.imgs.addLayer(logo1,300,0);
+        all.imgs.addLayer(logo2,300,300);
 
         submit.bind('click',function(){
             //console.log(123);

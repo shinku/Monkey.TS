@@ -9,8 +9,10 @@
     ///<reference path="MF_ImageScroller"/>
 class MF_ImageScrollControler  extends MF_ImageScroller{
     private  fc:MF_FACETOUCH;
-    constructor(parenttagname:any,width:number,height:number) {
+    constructor(parenttagname:any,width:number,height:number,useFc:Boolean=true) {
         super(parenttagname,width,height);
+        //useFc决定是否禁用触屏事件。
+        if(!useFc) return;
         this.fc=new MF_FACETOUCH(this.box);
         this.fc.addEventListener('tapmove',(e)=>{
             this.handleMove(e.data);

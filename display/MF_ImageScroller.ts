@@ -6,6 +6,7 @@
     ///<reference path='../utils/MF_VFILE'/>
     ///<reference path='MF_Canvas' />
     ///<reference path="../utils/MF_UTILS"/>
+    ///<reference path='canvasLayerOption'/>
 
 class MF_ImageScroller extends MF_EVENT.EventDispatcher {
     protected canvas:HTMLCanvasElement;
@@ -29,6 +30,12 @@ class MF_ImageScroller extends MF_EVENT.EventDispatcher {
         this.box.appendChild(this.mf_canvas.myCanvas);
 
         super();
+    }
+    public addLayer(img,x,y)
+    {
+        var layer=new canvasLayerOption(this.mf_canvas,img,x,y);
+        //layer.posx=x;
+        //layer.posy=y;
     }
     public set x(val:number)
     {
@@ -77,7 +84,8 @@ class MF_ImageScroller extends MF_EVENT.EventDispatcher {
     }
     handleFileLoaded(e)
     {
-        console.log(e);
+        //console.log(e);
+        this.dispatchEvent(new MF_EVENT.Event('fileloaded',e))
         //数据结构：
         //{type: "fileloaded", data: "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEBLAEsAAD…5wTX3FqTvBuKuxncwTyZPaBQPy8qbGdSHQQFoVmjZOtFiH//Z", target: MF_VFILE}
         this.img.src=e.data;

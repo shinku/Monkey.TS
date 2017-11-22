@@ -4,6 +4,7 @@
     ///<reference path='../core/Event'/>
     ///<reference path='../core/EventDispatcher'/>
     ///<reference path='../utils/MF_VFILE'/>
+    ///<reference path='canvasLayerOption'/>
 class MF_Canvas extends MF_EVENT.EventDispatcher{
     static canvasLabs:any={};
     protected canvas:HTMLCanvasElement;
@@ -20,10 +21,10 @@ class MF_Canvas extends MF_EVENT.EventDispatcher{
     protected imgPosition:any={};
     protected imgw:number;
     protected imgh:number;
+    protected layers:Array<canvasLayerOption>=[];
     constructor() {
         super();
         this.canvas=document.createElement('canvas');
-
         this.context=this.canvas.getContext('2d');
 
     }
@@ -42,6 +43,8 @@ class MF_Canvas extends MF_EVENT.EventDispatcher{
         this.imgPosition.width=cw;
         this.imgPosition.height=ch;
         this.context.setTransform(1,0,0,1,0,0);
+        this.context.save();
+
         this._x=this._y=this._rotate=0;
         this._scale=1;
         if(w/h>cw/ch)
@@ -58,10 +61,11 @@ class MF_Canvas extends MF_EVENT.EventDispatcher{
             this.imgh=ch;
             var sc=ch/h;
             this.imgw=w*sc;
-           this.x=(cw-this.imgw)/2;
+            this.x=(cw-this.imgw)/2;
             //this.y=0;
             //this.context.drawImage(imgdata,0,0,w,h,0,0,this.imgw,this.imgh);
         }
+        //this.context.save();
         //this.context.drawImage(imgdata,0,0,w,h,0,0,this.imgw,this.imgh);
         //this.context.drawImage(imgdata,0,0,w,h,0,0,cw,ch);
     }
@@ -77,6 +81,7 @@ class MF_Canvas extends MF_EVENT.EventDispatcher{
     public update()
     {
         var imgdata=this.imgdate;
+        if(!imgdata) return;
         var w:number=imgdata.width;
         var h:number=imgdata.height;
         var cw:number=this.canvas.width;
@@ -85,31 +90,41 @@ class MF_Canvas extends MF_EVENT.EventDispatcher{
         //this.context.translate(this.offsetx,this.offsety);
         this.clear();
         this.context.globalCompositeOperation='copy';
-
+        this.context.scale(this._scale,this._scale);
+        var offset:any=this.roateAnglePosition(this.x/this._scale,this.y,-this.rotation/180*Math.PI);
+        this.context.translate( this.canvas.width/2,
+            this.canvas.height/2);
+        this.context.rotate( this._rotate/180*Math.PI);
+        this.context.translate(-this.canvas.width/2,-this.canvas.height/2);
+        this.context.translate(offset.ofx,offset.ofy);
+        //this.context.translate(-this.offsetscale*this.imgPosition.width/2,-this.offsetscale*this.imgPosition.height/2);
         this.context.drawImage(imgdata,0,0,w,h,0,0,this.imgw,this.imgh);
         this.offsetrotate=this.offsetscale=this.offsetx=this.offsety = 0;
-        /*if(w/h>cw/ch)
+        this.context.restore();
+        for(var i=0;i<this.layers.length;i++)
         {
-            // 图片宽高比比容器宽高比多
-           this.imgw=cw;
-            var sc=cw/w;
-            this.imgh=ch*sc;
-            //this.context.drawImage(imgdata,0,0,w,h,0,0,this.imgw,this.imgh);
-            this.y=(w-this.imgh)
-        }
-        else{
-            //
-
-            this.imgh=ch;
-            var sc=ch/h;
-            this.imgw=cw*sc;
-            ///this.context.drawImage(imgdata,0,0,w,h,0,0,this.imgw,this.imgh);*/
-
-        //}
-
-        //this.context.drawImage(imgdata,0,0,w,h,0,0,cw,ch);
-
-
+            var layer=this.layers[i];
+            this.drawLayer(layer);
+        };
+    }
+    public addLayer(layer)
+    {
+        this.layers.push(layer);
+    }
+    public drawLayer(layer)
+    {
+        //this.context.setTransform(1,0,0,1,0,0);
+        //console.log(layer.img.width,layer.img.height,layer.x,layer.y);
+        console.log(layer.posx);
+        this.context.drawImage(layer.img,0,0,
+            layer.img.width,
+            layer.img.height,
+            layer.posx,
+            layer.posy,
+            layer.img.width,
+            layer.img.height);
+        //this.context.restore();
+      //  console.log(layer.img);
     }
     protected clear()
     {
@@ -122,15 +137,15 @@ class MF_Canvas extends MF_EVENT.EventDispatcher{
     {
         this.offsetscale=val-this._scale;
         this._scale=val;
-        this.clear();
+        this.context.save();
         var w:number=this.imgPosition.width*(this.offsetscale+1);
         var h:number=this.imgPosition.height*(this.offsetscale+1);
-        this.context.transform(this.offsetscale+1,
+        /*this.context.transform(this.offsetscale+1,
             0,
             0,
             this.offsetscale+1,
             -this.offsetscale*this.imgPosition.width/2,
-            -this.offsetscale*this.imgPosition.height/2);
+            -this.offsetscale*this.imgPosition.height/2);*/
         this.update();
 
     }
@@ -151,22 +166,22 @@ class MF_Canvas extends MF_EVENT.EventDispatcher{
     public set x(val:number)
     {
         this.offsetx=val-this._x;
+        this.offsetx=val;
         this._x=val;
-        this.clear();
-        var offset:any=this.roateAnglePosition(this.offsetx/this._scale,0,-this.rotation/180*Math.PI);
-        this.context.transform(1,
+
+        this.context.save();
+      /*  this.context.transform(1,
             0,
             0,
             1,
             offset.ofx,
-            offset.ofy);
-
+            offset.ofy);*/
         this.update();
 
     }
     private roateAnglePosition(x,y,angle)
     {
-       var  x1:number = Math.cos(angle) * x - Math.sin(angle) * y;
+       var  x1:number = Math.cos(angle) * x - Math.sin(angle) * y ;
         var  y1:number = Math.cos(angle) * y + Math.sin(angle) * x;
         return {ofx:x1,ofy:y1};
     }
@@ -177,15 +192,16 @@ class MF_Canvas extends MF_EVENT.EventDispatcher{
     public set y(val:number)
     {
         this.offsety=val-this._y;
+        this.offsety=val;
         this._y=val;
-        this.clear();
         var offset:any=this.roateAnglePosition(0,this.offsety/this._scale,-this.rotation/180*Math.PI);
-        this.context.transform(1,
+        this.context.save();
+        /*this.context.transform(1,
             0,
             0,
             1,
             offset.ofx,
-            offset.ofy);
+            offset.ofy);*/
         this.update();
     }
     public get y():number
@@ -197,19 +213,18 @@ class MF_Canvas extends MF_EVENT.EventDispatcher{
     {
         this.offsetrotate=(val-this._rotate)/180*Math.PI;
         this._rotate=val;
-        this.clear();
-        var w:number=this.imgPosition.width*(this.offsetscale+1);
-        var h:number=this.imgPosition.height*(this.offsetscale+1);
+        //var w:number=this.imgPosition.width*(this.offsetscale+1);
+        //var h:number=this.imgPosition.height*(this.offsetscale+1);
+        this.context.save();
 
        // this.context.rotate(-this._rotate/180*Math.PI);
-        this.context.translate( this.canvas.width/2,
+       /* this.context.translate( this.canvas.width/2,
             this.canvas.height/2);
         //this.clear();
         this.context.rotate( this.offsetrotate);
         //this.clear();
-        this.context.translate(-this.canvas.width/2,-this.canvas.height/2);
+        this.context.translate(-this.canvas.width/2,-this.canvas.height/2);*/
         //this.clear();
-        this.clear();
 
         this.update();
 
