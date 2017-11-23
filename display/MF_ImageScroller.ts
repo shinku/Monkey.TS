@@ -23,14 +23,18 @@ class MF_ImageScroller extends MF_EVENT.EventDispatcher {
             this.box=_boxnametag;
         }
         this.mf_canvas=new MF_Canvas();
-        this.img=new Image();
-        this.img.onload=(e)=>{this.handleImageLoaded(e)}
+
         this.mf_canvas.setStyle('width',width+"px");
         this.mf_canvas.setStyle('height',height+"px");
         this.box.appendChild(this.mf_canvas.myCanvas);
         MF_VFILE.getInstance().addEventListener('fileloaded',(e)=>{
             this.handleFileLoaded(e);
         });
+
+        this.mf_canvas.addEventListener('drawcomplete',(e)=>{
+            //监听到drawcomplete事件之后 ，同时向外发布drawcomplete 事件
+            this.dispatchEvent(new MF_EVENT.Event('drawcomplete'));
+        })
         super();
     }
     public addLayer(img,x,y)
@@ -76,7 +80,7 @@ class MF_ImageScroller extends MF_EVENT.EventDispatcher {
     public load()
     {
 
-        MF_VFILE.getInstance().loadFile();
+        MF_VFILE.getInstance().loadFile("image/png,image/jpg");
     }
     protected handleImageLoaded(e)
     {
@@ -85,9 +89,12 @@ class MF_ImageScroller extends MF_EVENT.EventDispatcher {
     handleFileLoaded(e)
     {
         //console.log(e);
-        this.dispatchEvent(new MF_EVENT.Event('fileloaded',e))
+        this.img=null;
+        this.dispatchEvent(new MF_EVENT.Event('fileloaded',e));
         //数据结构：
         //{type: "fileloaded", data: "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEBLAEsAAD…5wTX3FqTvBuKuxncwTyZPaBQPy8qbGdSHQQFoVmjZOtFiH//Z", target: MF_VFILE}
+        this.img=new Image();
+        this.img.onload=(e)=>{this.handleImageLoaded(e)}
         this.img.src=e.data;
     }
     public get pngData():string

@@ -4,12 +4,14 @@ import EventDispatcher = MF_EVENT.EventDispatcher;
  */
 ///<reference path='../core/EventDispatcher.ts' />;
 ///<reference path='../core/Event.ts' />;
+    ///<reference path='../utils/EXIF.ts'/>
 class MF_VFILE  extends MF_EVENT.EventDispatcher{
     private static instance:MF_VFILE;
     private input:any;
     private file:FileReader;
     public data:any;
     public chacheFile:any;
+
     constructor() {
         super();
         if(window.hasOwnProperty('File') && window.hasOwnProperty('FileReader') && window.hasOwnProperty('FileList') && window.hasOwnProperty('Blob'))
@@ -53,14 +55,14 @@ class MF_VFILE  extends MF_EVENT.EventDispatcher{
     {
         var targe:any= e.target || window.event.srcElement;
         var filedata:any=this.input.files[0];
+
+        //console.log(filedata);
+
+        //EXIF.getData(filedata,function(){
+         //   alert(EXIF.pretty(filedata));
+        //})
+        //console.log(filedata);
         //如果重复提交同一个文件，不用再次读取。直接返回即可。
-
-        if(this.chacheFile && this.chacheFile==filedata)
-        {
-            this.dispatchEvent(new MF_EVENT.Event('fileloaded',this.file.result));
-        }
-        this.chacheFile=filedata;
-
         if(!filedata){
             console.log('没有选择文件');
             this.dispatchEvent(new MF_EVENT.Event('error','null'));
@@ -71,9 +73,14 @@ class MF_VFILE  extends MF_EVENT.EventDispatcher{
             console.log('载入VFILE资源');
         }
     }
-    public loadFile()
+    public loadFile(filters)
     {
-        console.log(this.input);
+        //console.log(this.input);
+        if(filters)
+        {
+            this.input.accept=filters;
+        }
+        //console.log(this.input);
         if(document.all)
         {
             this.input.click();

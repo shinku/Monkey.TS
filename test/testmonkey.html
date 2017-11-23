@@ -81,6 +81,10 @@
             console.log(e);
             alert('file 资源加载完成')
         });
+        all.imgs.addEventListener('drawcomplete',function(e){
+            console.log(e);
+            alert('图形绘制完成');
+        })
         var logo1=new Image();
         var logo2=new Image();
         //logo1.crossOrigin='Anonymous';
@@ -94,7 +98,8 @@
             //console.log('loaded');
          //   all.imgs.addLayer(img,400,0);
         //};
-        console.log(logo1,logo2);
+
+        //console.log(logo1,logo2);
         all.imgs.addLayer(logo1,300,0);
         all.imgs.addLayer(logo2,300,300);
 
