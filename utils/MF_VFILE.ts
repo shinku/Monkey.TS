@@ -9,6 +9,7 @@ class MF_VFILE  extends MF_EVENT.EventDispatcher{
     private input:any;
     private file:FileReader;
     public data:any;
+    public chacheFile:any;
     constructor() {
         super();
         if(window.hasOwnProperty('File') && window.hasOwnProperty('FileReader') && window.hasOwnProperty('FileList') && window.hasOwnProperty('Blob'))
@@ -19,17 +20,26 @@ class MF_VFILE  extends MF_EVENT.EventDispatcher{
             alert("你使用的浏览器不支持文件本地上传。请更新你的浏览器");
             return;
         };
+
+        this.file = new FileReader();
+        this.file.onload =(e:any)=>{
+            //console.log('uploaded');
+            this.dispatchEvent(new MF_EVENT.Event('fileloaded',e.target.result));
+            //初始化input标签，
+            this.initInput();
+        }
+        //初始化input标签，
+        this.initInput();
+    }
+    public initInput()
+    {
+        this.input=null;
         this.input = document.createElement('input');
         this.input.type = 'file';
         //document.body.appendChild(this.input);
         this.input.onchange=(e)=>{
             this.fileSelect(e);
-        }
-        this.file = new FileReader();
-        this.file.onload =(e:any)=>{
-            this.dispatchEvent(new MF_EVENT.Event('fileloaded',e.target.result));
-        }
-
+        };
     }
     static getInstance():MF_VFILE
     {
@@ -43,6 +53,14 @@ class MF_VFILE  extends MF_EVENT.EventDispatcher{
     {
         var targe:any= e.target || window.event.srcElement;
         var filedata:any=this.input.files[0];
+        //如果重复提交同一个文件，不用再次读取。直接返回即可。
+
+        if(this.chacheFile && this.chacheFile==filedata)
+        {
+            this.dispatchEvent(new MF_EVENT.Event('fileloaded',this.file.result));
+        }
+        this.chacheFile=filedata;
+
         if(!filedata){
             console.log('没有选择文件');
             this.dispatchEvent(new MF_EVENT.Event('error','null'));
