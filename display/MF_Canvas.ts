@@ -115,7 +115,7 @@ class MF_Canvas extends MF_EVENT.EventDispatcher{
     {
         //this.context.setTransform(1,0,0,1,0,0);
         //console.log(layer.img.width,layer.img.height,layer.x,layer.y);
-        console.log(layer.posx);
+        //console.log(layer.posx);
         this.context.drawImage(layer.img,0,0,
             layer.img.width,
             layer.img.height,

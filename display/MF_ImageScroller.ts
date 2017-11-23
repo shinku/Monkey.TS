@@ -28,7 +28,9 @@ class MF_ImageScroller extends MF_EVENT.EventDispatcher {
         this.mf_canvas.setStyle('width',width+"px");
         this.mf_canvas.setStyle('height',height+"px");
         this.box.appendChild(this.mf_canvas.myCanvas);
-
+        MF_VFILE.getInstance().addEventListener('fileloaded',(e)=>{
+            this.handleFileLoaded(e);
+        });
         super();
     }
     public addLayer(img,x,y)
@@ -73,9 +75,7 @@ class MF_ImageScroller extends MF_EVENT.EventDispatcher {
 
     public load()
     {
-        MF_VFILE.getInstance().addEventListener('fileloaded',(e)=>{
-           this.handleFileLoaded(e);
-        });
+
         MF_VFILE.getInstance().loadFile();
     }
     protected handleImageLoaded(e)
@@ -96,6 +96,6 @@ class MF_ImageScroller extends MF_EVENT.EventDispatcher {
     }
     public get JpgData():string
     {
-        return this.mf_canvas.getCanvasData('image/jpeg');
+        return this.mf_canvas.getCanvasData('image/jpeg',60);
     }
 }

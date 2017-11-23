@@ -83,13 +83,18 @@
         });
         var logo1=new Image();
         var logo2=new Image();
-        logo1.src='http://www.lorealparis-mediacenter.com/Content/Front/loreal/images/logo_1.jpg';
-        logo2.src='https://gss3.bdstatic.com/7Po3dSag_xI4khGkpoWK1HF6hhy/baike/w%3D268%3Bg%3D0/sign=56eb97b16a59252da3171a020ca06406/ac6eddc451da81cbb6c9f6665866d01609243169.jpg';
+        //logo1.crossOrigin='Anonymous';
+        //logo2.crossOrigin='Anonymous';
+        //ogo2.setAttribute('crossorigin','Anonymous');
+        //logo1.setAttribute('crossorigin','Anonymous');
+        logo1.src='logo_1.jpg';
+        logo2.src='logo_2.jpg';
         //img.src='http://www.lorealparis-mediacenter.com/Content/Front/loreal/images/logo_1.jpg';
         //img.onload=function(e){
             //console.log('loaded');
          //   all.imgs.addLayer(img,400,0);
         //};
+        console.log(logo1,logo2);
         all.imgs.addLayer(logo1,300,0);
         all.imgs.addLayer(logo2,300,300);
 
@@ -110,10 +115,9 @@
         right.bind('click',function(){
             all.imgs.rotation-=3;
         });
-
-
         showImage.bind('click',function(){
-            debugimg.src=all.imgs.pngData;
+            console.log(all.imgs.JpgData)
+            debugimg.src=all.imgs.JpgData;
         })
 
 
