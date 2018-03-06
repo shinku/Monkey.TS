@@ -23,7 +23,7 @@ imagemin = require('gulp-imagemin'),       //图片压缩
 
     //压缩并合并js
 gulp.task('js',function( ){
-        var jsSrc = 'lib/*.js';
+        var jsSrc = 'lib/monkey.js';
         var jsDst= 'lib/';
     gulp.src(jsSrc)
 
