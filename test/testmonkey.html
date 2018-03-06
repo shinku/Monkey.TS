@@ -75,12 +75,14 @@
     {
 
         //https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3803730718,1493230642&fm=27&gp=0.jpg
-        all.imgs=new MF_ImageScrollControler(document.getElementById('TEST'),750,600);
+        all.imgs=new MF_ImageScrollControler(document.getElementById('TEST'),750,600,false,3);
+        all.imgs.CanvasFilleStyle='cover';
         //资源加载完成事件
         all.imgs.addEventListener('fileloaded',function(e){
             console.log(e);
             alert('file 资源加载完成')
         });
+
         all.imgs.addEventListener('drawcomplete',function(e){
             console.log(e);
             alert('图形绘制完成');
@@ -100,8 +102,8 @@
         //};
 
         //console.log(logo1,logo2);
-        all.imgs.addLayer(logo1,300,0);
-        all.imgs.addLayer(logo2,300,300);
+        //all.imgs.addLayer(logo1,300,0);
+        //all.imgs.addLayer(logo2,300,300);
 
         submit.bind('click',function(){
             //console.log(123);

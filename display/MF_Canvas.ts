@@ -6,6 +6,7 @@
     ///<reference path='../utils/MF_VFILE'/>
     ///<reference path='canvasLayerOption'/>
     ///<reference path='../utils/MF_COVERIMG'/>
+    ///<reference path='../utils/EXIF'/>
 class MF_Canvas extends MF_EVENT.EventDispatcher{
     static canvasLabs:any={};
     protected canvas:HTMLCanvasElement;
@@ -23,16 +24,22 @@ class MF_Canvas extends MF_EVENT.EventDispatcher{
     protected imgw:number;
     protected imgh:number;
     protected layers:Array<canvasLayerOption>=[];
+    public fillStyle='normal';//'cover ; normal';
     constructor() {
         super();
         this.canvas=document.createElement('canvas');
         this.context=this.canvas.getContext('2d');
 
     }
+    public getStyle(styename)
+    {
+        return this.myCanvas.style[styename];
+    }
     public draw(imgdata:HTMLImageElement)
     {
         this.imgdate=imgdata;
         var self=this;
+        if(!EXIF) return;
         EXIF.getData(this.imgdate,function(){
             //alert('getdata');
             //console.log(this);
@@ -77,7 +84,7 @@ class MF_Canvas extends MF_EVENT.EventDispatcher{
         }
 
     }
-    private doDraw(img)
+    private doDraw(img=null)
     {
         if(img) this.imgdate=img;
         var imgdata=this.imgdate;
@@ -92,24 +99,50 @@ class MF_Canvas extends MF_EVENT.EventDispatcher{
 
         this._x=this._y=this._rotate=0;
         this._scale=1;
-        if(w/h>cw/ch)
+
+        switch(this.fillStyle)
         {
-            // 图片宽高比比容器宽高比多
-            this.imgw=cw;
-            var sc=cw/w;
-            this.imgh=h*sc;
-            this.y=(ch-this.imgh)/2;
-            //this.x=0;
+            case "normal":
+                if(w/h>cw/ch)
+                {
+                    // 图片宽高比比容器宽高比多
+                    this.imgw=cw;
+                    var sc=cw/w;
+                    this.imgh=h*sc;
+                    this.y=(ch-this.imgh)/2;
+                    //this.x=0;
+                }
+                else{
+                    //
+                    this.imgh=ch;
+                    var sc=ch/h;
+                    this.imgw=w*sc;
+                    this.x=(cw-this.imgw)/2;
+                    //this.y=0;
+                    //this.context.drawImage(imgdata,0,0,w,h,0,0,this.imgw,this.imgh);
+                };
+                break;
+            case "cover":
+                if(w/h>cw/ch)
+                {
+                    // 图片宽高比比容器宽高比多
+                    this.imgh=ch;
+                    var sc=ch/h;
+                    this.imgw=w*sc;
+                    this.x=(cw-this.imgw)/2;
+
+                }else{
+                    this.imgw=cw;
+                    var sc=cw/w;
+                    this.imgh=h*sc;
+                    this.y=(ch-this.imgh)/2;
+                }
+
+                break;
         }
-        else{
-            //
-            this.imgh=ch;
-            var sc=ch/h;
-            this.imgw=w*sc;
-            this.x=(cw-this.imgw)/2;
-            //this.y=0;
-            //this.context.drawImage(imgdata,0,0,w,h,0,0,this.imgw,this.imgh);
-        };
+
+
+
         //发布绘制完成事件
         this.dispatchEvent(new MF_EVENT.Event('drawcomplete'));
         //this.context.save();
@@ -239,7 +272,6 @@ class MF_Canvas extends MF_EVENT.EventDispatcher{
             offset.ofx,
             offset.ofy);*/
         this.update();
-
     }
     private roateAnglePosition(x,y,angle)
     {

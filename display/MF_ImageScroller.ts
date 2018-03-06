@@ -14,6 +14,7 @@ class MF_ImageScroller extends MF_EVENT.EventDispatcher {
     protected mf_canvas:MF_Canvas;
     protected img:HTMLImageElement;
     constructor(_boxnametag:any,width:number,height:number) {
+        super();
         if(typeof  _boxnametag =='string')
         {
             this.box=document.getElementById(_boxnametag);
@@ -35,7 +36,11 @@ class MF_ImageScroller extends MF_EVENT.EventDispatcher {
             //监听到drawcomplete事件之后 ，同时向外发布drawcomplete 事件
             this.dispatchEvent(new MF_EVENT.Event('drawcomplete'));
         })
-        super();
+
+    }
+    public set CanvasFilleStyle(val)
+    {
+        this.mf_canvas.fillStyle=val ||'normal';
     }
     public addLayer(img,x,y)
     {
