@@ -87,7 +87,7 @@
       <file leaf-file-name="canvasLayerOption.ts" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/display/canvasLayerOption.ts">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="428">
+            <state relative-caret-position="780">
               <caret line="52" column="35" selection-start-line="52" selection-start-column="35" selection-end-line="52" selection-end-column="35" />
             </state>
           </provider>
@@ -96,8 +96,8 @@
       <file leaf-file-name="MF_Canvas.ts" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/display/MF_Canvas.ts">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="102">
-              <caret line="369" column="25" lean-forward="true" selection-start-line="369" selection-start-column="25" selection-end-line="369" selection-end-column="25" />
+            <state relative-caret-position="8">
+              <caret line="361" lean-forward="true" selection-start-line="361" selection-end-line="361" />
             </state>
           </provider>
         </entry>
@@ -124,7 +124,7 @@
         <entry file="file://$PROJECT_DIR$/lib/monkey.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="14985">
-              <caret line="999" column="45" lean-forward="true" selection-start-line="999" selection-start-column="45" selection-end-line="999" selection-end-column="45" />
+              <caret line="999" column="45" selection-start-line="999" selection-start-column="45" selection-end-line="999" selection-end-column="45" />
             </state>
           </provider>
         </entry>
@@ -215,6 +215,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -256,7 +257,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -385,11 +385,12 @@
       <workItem from="1533216862975" duration="2871000" />
       <workItem from="1534912821492" duration="2733000" />
       <workItem from="1534923716338" duration="484000" />
+      <workItem from="1535013625133" duration="402000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="14501000" />
+    <option name="totallyTimeSpent" value="14903000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1440" height="790" extended-state="0" />
@@ -400,12 +401,12 @@
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Event Log" order="8" side_tool="true" />
-      <window_info anchor="bottom" id="Run" order="2" />
       <window_info anchor="bottom" id="Version Control" order="11" />
+      <window_info anchor="bottom" id="Run" order="2" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info active="true" anchor="bottom" id="Terminal" order="9" visible="true" weight="0.27128428" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TypeScript Compiler" order="10" visible="true" weight="0.14749661" />
@@ -721,7 +722,7 @@
     <entry file="file://$PROJECT_DIR$/lib/monkey.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="14985">
-          <caret line="999" column="45" lean-forward="true" selection-start-line="999" selection-start-column="45" selection-end-line="999" selection-end-column="45" />
+          <caret line="999" column="45" selection-start-line="999" selection-start-column="45" selection-end-line="999" selection-end-column="45" />
         </state>
       </provider>
     </entry>
@@ -774,15 +775,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/display/canvasLayerOption.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="428">
+        <state relative-caret-position="780">
           <caret line="52" column="35" selection-start-line="52" selection-start-column="35" selection-end-line="52" selection-end-column="35" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/display/MF_Canvas.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="369" column="25" lean-forward="true" selection-start-line="369" selection-start-column="25" selection-end-line="369" selection-end-column="25" />
+        <state relative-caret-position="8">
+          <caret line="361" lean-forward="true" selection-start-line="361" selection-end-line="361" />
         </state>
       </provider>
     </entry>
