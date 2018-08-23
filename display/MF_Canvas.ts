@@ -25,6 +25,7 @@ class MF_Canvas extends MF_EVENT.EventDispatcher{
     protected imgh:number;
     protected layers:Array<canvasLayerOption>=[];
     public fillStyle='normal';//'cover ; normal';
+    protected _masker:any;
     constructor() {
         super();
         this.canvas=document.createElement('canvas');
@@ -34,6 +35,10 @@ class MF_Canvas extends MF_EVENT.EventDispatcher{
     public getStyle(styename)
     {
         return this.myCanvas.style[styename];
+    }
+    public set mask(m)
+    {
+        this._masker=m;
     }
     public draw(imgdata:HTMLImageElement)
     {
@@ -202,16 +207,41 @@ class MF_Canvas extends MF_EVENT.EventDispatcher{
             var layer=this.layers[i];
             this.drawLayer(layer);
         };
+        this.drawMask();
     }
     public addLayer(layer)
     {
         this.layers.push(layer);
+    }
+    public drawMask(){
+
+        if(this._masker)
+        {
+            var m=this._masker;
+            //this.context.save();
+            //this.context.globalCompositeOperation="destination-in";
+            console.log(m.img);
+            this.context.drawImage(m.img,0,0,
+                m.width,
+                m.height,
+                m.posx,
+                m.posy,
+                m.width,
+                m.height);
+            //this.context.restore();
+        }
     }
     public drawLayer(layer)
     {
         //this.context.setTransform(1,0,0,1,0,0);
         //console.log(layer.img.width,layer.img.height,layer.x,layer.y);
         //console.log(layer.posx);
+        this.context.save();
+        if(layer.ismask)
+        {
+            this.context.globalCompositeOperation="destination-in";
+            console.log("MASK!!");
+        }
         this.context.drawImage(layer.img,0,0,
             layer.img.width,
             layer.img.height,
@@ -219,6 +249,7 @@ class MF_Canvas extends MF_EVENT.EventDispatcher{
             layer.posy,
             layer.img.width,
             layer.img.height);
+        this.context.restore();
         //this.context.restore();
       //  console.log(layer.img);
     }

@@ -8,11 +8,13 @@ class canvasLayerOption {
     protected _img:HTMLImageElement;
     protected position:MF_Point;
     protected _canvas:MF_Canvas;
-    constructor(canvas,img,x=0,y=0) {
+    protected _ismask:boolean;
+    constructor(canvas,img,x=0,y=0,isMask=false) {
         this._img=img;
         this._canvas=canvas;
         this._canvas.addLayer(this);
         this.position=new MF_Point(x,y);
+        this._ismask=isMask;
         if(!img.onload)
         {
             img.onload=(e)=>{
@@ -23,6 +25,10 @@ class canvasLayerOption {
             this.onImgLoaded();
         }
 
+    }
+    public get ismask()
+    {
+        return this._ismask;
     }
     set posx(x:number)
     {

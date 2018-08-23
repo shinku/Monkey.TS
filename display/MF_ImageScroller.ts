@@ -48,6 +48,11 @@ class MF_ImageScroller extends MF_EVENT.EventDispatcher {
         //layer.posx=x;
         //layer.posy=y;
     }
+    public addMask(img,x,y)
+    {
+        var layer=new canvasLayerOption(this.mf_canvas,img,x,y,true);
+    }
+
     public set x(val:number)
     {
         this.mf_canvas.x=val;

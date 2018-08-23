@@ -33,11 +33,6 @@ class MF_FACETOUCH extends MF_EVENT.EventDispatcher{
     {
         e.preventDefault();
         this.isTouch=true;
-        var str='';
-        for (var o in e)
-        {
-            str+=o+"="+e[o]+"\n";
-        }
         if(e.targetTouches)
         {
             var touchnum=e.targetTouches.length;
