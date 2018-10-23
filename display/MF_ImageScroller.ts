@@ -7,6 +7,7 @@
     ///<reference path='MF_Canvas' />
     ///<reference path="../utils/MF_UTILS"/>
     ///<reference path='canvasLayerOption'/>
+    ///<reference path='backgroundCanvasLayOption'/>
 
 class MF_ImageScroller extends MF_EVENT.EventDispatcher {
     protected canvas:HTMLCanvasElement;
@@ -45,12 +46,20 @@ class MF_ImageScroller extends MF_EVENT.EventDispatcher {
     public addLayer(img,x,y)
     {
         var layer=new canvasLayerOption(this.mf_canvas,img,x,y);
+        return layer;
         //layer.posx=x;
         //layer.posy=y;
     }
     public addMask(img,x,y)
     {
         var layer=new canvasLayerOption(this.mf_canvas,img,x,y,true);
+    }
+    public addBackGround(img,x,y)
+    {
+        x=x || 0;
+        y=y || 0;
+        var layer=new backgroundCanvasLayOption(this.mf_canvas,img,x,y);
+        return layer;
     }
 
     public set x(val:number)

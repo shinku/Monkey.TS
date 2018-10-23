@@ -79,11 +79,20 @@
         all.imgs=new MF_ImageScrollControler(document.getElementById('TEST'),750,600,false,3);
         all.imgs.CanvasFilleStyle='cover';
         //资源加载完成事件
+
+
+        var backimg=new Image();
+        backimg.src='bg1.jpg';
+        backimg.onload=function(){
+            all.imgs.addBackGround(backimg,0,0);
+        }
+
+
         var img=new Image();
         img.src='boymasker.png';
         img.onload=function(){
             console.log('maskloaded');
-           all.imgs.addMask(img,322,291);
+            //all.imgs.addMask(img,322,291);
         }
         all.imgs.addEventListener('fileloaded',function(e){
             console.log(e);
@@ -105,7 +114,7 @@
         //img.src='http://www.lorealparis-mediacenter.com/Content/Front/loreal/images/logo_1.jpg';
         logo1.onload=function(e){
             console.log('loaded');
-            //all.imgs.addLayer(img,400,0);
+            all.imgs.addLayer(img,400,0);
         };
 
         //console.log(logo1,logo2);

@@ -23,6 +23,7 @@ class MF_Canvas extends MF_EVENT.EventDispatcher{
     protected imgPosition:any={};
     protected imgw:number;
     protected imgh:number;
+    protected _background:canvasLayerOption;
     protected layers:Array<canvasLayerOption>=[];
     public fillStyle='normal';//'cover ; normal';
     protected _masker:any;
@@ -39,6 +40,10 @@ class MF_Canvas extends MF_EVENT.EventDispatcher{
     public set mask(m)
     {
         this._masker=m;
+    }
+    public set background(layer)
+    {
+        this._background=layer;
     }
     public draw(imgdata:HTMLImageElement)
     {
@@ -167,6 +172,10 @@ class MF_Canvas extends MF_EVENT.EventDispatcher{
     {
         var imgdata=this.imgdate;
         if(!imgdata) return;
+
+
+
+
         var w:number=imgdata.width;
         var h:number=imgdata.height;
         var cw:number=this.canvas.width;
@@ -174,7 +183,21 @@ class MF_Canvas extends MF_EVENT.EventDispatcher{
         //console.log(this.x,this.y);
         //this.context.translate(this.offsetx,this.offsety);
         this.clear();
-        this.context.globalCompositeOperation='copy';
+
+        if(this._background)
+        {
+            this.drawLayer(this._background);
+            //return;
+        }
+
+
+        //this.context.globalCompositeOperation='copy';
+
+
+
+
+
+        this.context.save();
         var offx=this.canvas.width/2;
         var offy=this.canvas.height/2;
         this.context.translate(offx,offy);
@@ -215,12 +238,12 @@ class MF_Canvas extends MF_EVENT.EventDispatcher{
     }
     public drawMask(){
 
-        if(this._masker)
+        /*if(this._masker)
         {
             var m=this._masker;
             //this.context.save();
             //this.context.globalCompositeOperation="destination-in";
-            console.log(m.img);
+            //console.log(m.img);
             this.context.drawImage(m.img,0,0,
                 m.width,
                 m.height,
@@ -229,7 +252,7 @@ class MF_Canvas extends MF_EVENT.EventDispatcher{
                 m.width,
                 m.height);
             //this.context.restore();
-        }
+        }*/
     }
     public drawLayer(layer)
     {
@@ -240,7 +263,11 @@ class MF_Canvas extends MF_EVENT.EventDispatcher{
         if(layer.ismask)
         {
             this.context.globalCompositeOperation="destination-in";
-            console.log("MASK!!");
+            //console.log("MASK!!");
+        }
+        if(layer._isbackground)
+        {
+            console.log('background!');
         }
         this.context.drawImage(layer.img,0,0,
             layer.img.width,

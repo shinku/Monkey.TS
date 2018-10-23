@@ -9,10 +9,12 @@ class canvasLayerOption {
     protected position:MF_Point;
     protected _canvas:MF_Canvas;
     protected _ismask:boolean;
+    protected _isbackground:boolean;
     constructor(canvas,img,x=0,y=0,isMask=false) {
         this._img=img;
         this._canvas=canvas;
-        this._canvas.addLayer(this);
+        this.canvasAddLayer();
+
         this.position=new MF_Point(x,y);
         this._ismask=isMask;
         if(!img.onload)
@@ -26,6 +28,15 @@ class canvasLayerOption {
         }
 
     }
+    protected canvasAddLayer()
+    {
+        if(this._canvas)
+        {
+            this._canvas.addLayer(this);
+        }
+
+    }
+
     public get ismask()
     {
         return this._ismask;
