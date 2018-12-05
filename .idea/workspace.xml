@@ -5,6 +5,15 @@
       <change afterPath="$PROJECT_DIR$/display/backgroundCanvasLayOption.ts" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/display/canvasLayerOption.ts" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/display/displayutils" afterDir="true" />
+      <change afterPath="$PROJECT_DIR$/test/img" afterDir="true" />
+      <change afterPath="$PROJECT_DIR$/test/img/5_00919.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/img/5_00920.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/img/5_00921.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/img/5_00922.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/img/5_00923.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/img/5_00924.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/img/5_00925.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/test.html" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/utils/EXIF.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
@@ -35,11 +44,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="testmonkey.html" pinned="false" current-in-tab="true">
+      <file leaf-file-name="testmonkey.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/test/testmonkey.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="351">
-              <caret line="116" column="12" lean-forward="true" selection-start-line="116" selection-start-column="12" selection-end-line="116" selection-end-column="12" />
+            <state relative-caret-position="273">
+              <caret line="94" column="5" lean-forward="true" selection-start-line="94" selection-start-column="5" selection-end-line="94" selection-end-column="5" />
               <folding>
                 <element signature="n#style#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#div#5;n#body#0;n#html#0;n#!!top" expanded="true" />
@@ -49,11 +58,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MF_ImageScrollControler.ts" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/display/MF_ImageScrollControler.ts">
+      <file leaf-file-name="MF_FaceTouch.ts" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/utils/MF_FaceTouch.ts">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="135">
-              <caret line="9" column="55" selection-start-line="9" selection-start-column="39" selection-end-line="9" selection-end-column="55" />
+            <state relative-caret-position="522">
+              <caret line="144" column="78" lean-forward="true" selection-start-line="144" selection-start-column="78" selection-end-line="144" selection-end-column="78" />
             </state>
           </provider>
         </entry>
@@ -61,8 +70,8 @@
       <file leaf-file-name="MF_ImageScroller.ts" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/display/MF_ImageScroller.ts">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="915">
-              <caret line="61" column="8" selection-start-line="61" selection-start-column="8" selection-end-line="61" selection-end-column="8" />
+            <state relative-caret-position="1005">
+              <caret line="67" column="27" selection-start-line="67" selection-start-column="11" selection-end-line="67" selection-end-column="27" />
             </state>
           </provider>
         </entry>
@@ -70,8 +79,8 @@
       <file leaf-file-name="canvasLayerOption.ts" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/display/canvasLayerOption.ts">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="82">
-              <caret line="7" column="36" lean-forward="true" selection-start-line="7" selection-start-column="36" selection-end-line="7" selection-end-column="36" />
+            <state relative-caret-position="930">
+              <caret line="62" column="5" lean-forward="true" selection-start-line="62" selection-start-column="5" selection-end-line="62" selection-end-column="5" />
             </state>
           </provider>
         </entry>
@@ -79,8 +88,8 @@
       <file leaf-file-name="backgroundCanvasLayOption.ts" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/display/backgroundCanvasLayOption.ts">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="225">
-              <caret line="15" column="5" lean-forward="true" selection-start-line="15" selection-start-column="5" selection-end-line="15" selection-end-column="5" />
+            <state relative-caret-position="270">
+              <caret line="18" column="13" selection-start-line="18" selection-start-column="13" selection-end-line="18" selection-end-column="13" />
             </state>
           </provider>
         </entry>
@@ -88,8 +97,8 @@
       <file leaf-file-name="MF_Canvas.ts" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/display/MF_Canvas.ts">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="172">
-              <caret line="192" lean-forward="true" selection-start-line="192" selection-end-line="192" />
+            <state relative-caret-position="298">
+              <caret line="383" column="24" selection-start-line="383" selection-start-column="24" selection-end-line="383" selection-end-column="24" />
             </state>
           </provider>
         </entry>
@@ -117,39 +126,46 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="HTML File" />
         <option value="tsconfig.json" />
         <option value="gulpfile.js" />
         <option value="TypeScript File" />
         <option value="JavaScript File" />
+        <option value="HTML File" />
       </list>
     </option>
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>setStyle</find>
-      <find>Rate</find>
-      <find>MF_VFILE</find>
-      <find>load</find>
-      <find>touchpoints</find>
-      <find>scale</find>
-      <find>save</find>
-      <find>destination-in</find>
-      <find>context</find>
-      <find>update</find>
-      <find>doDraw</find>
       <find>addlay</find>
       <find>add</find>
       <find>_masker</find>
       <find>masker</find>
       <find>addMa</find>
       <find>addMask</find>
-      <find>addLayer</find>
       <find>layers</find>
       <find>addLa</find>
       <find>addBackGround</find>
       <find>canvasLayerOption</find>
+      <find>submit</find>
+      <find>imgs</find>
+      <find>addLayer</find>
+      <find>imgs.load</find>
+      <find>addla</find>
+      <find>tap</find>
+      <find>caculatepointsDistance</find>
+      <find>bg1</find>
+      <find>pageX</find>
+      <find>addl</find>
+      <find>console</find>
+      <find>update</find>
       <find>drawLayer</find>
+      <find>drawImage</find>
+      <find>drawLa</find>
+      <find>rot</find>
+      <find>hit</find>
+      <find>rotation</find>
+      <find>rotate</find>
+      <find>hitt</find>
     </findStrings>
   </component>
   <component name="IdeDocumentHistory">
@@ -180,13 +196,14 @@
         <option value="$PROJECT_DIR$/utils/MF_COVERIMG.ts" />
         <option value="$PROJECT_DIR$/display/MF_ImageScrollControler.ts" />
         <option value="$PROJECT_DIR$/gulpfile.js" />
-        <option value="$PROJECT_DIR$/utils/MF_FaceTouch.ts" />
         <option value="$PROJECT_DIR$/display/backgroundCanvasLayOption.js" />
-        <option value="$PROJECT_DIR$/display/MF_ImageScroller.ts" />
-        <option value="$PROJECT_DIR$/display/canvasLayerOption.ts" />
+        <option value="$PROJECT_DIR$/test/test.html" />
         <option value="$PROJECT_DIR$/display/backgroundCanvasLayOption.ts" />
-        <option value="$PROJECT_DIR$/display/MF_Canvas.ts" />
+        <option value="$PROJECT_DIR$/utils/MF_FaceTouch.ts" />
+        <option value="$PROJECT_DIR$/display/canvasLayerOption.ts" />
+        <option value="$PROJECT_DIR$/display/MF_ImageScroller.ts" />
         <option value="$PROJECT_DIR$/test/testmonkey.html" />
+        <option value="$PROJECT_DIR$/display/MF_Canvas.ts" />
       </list>
     </option>
   </component>
@@ -200,8 +217,9 @@
     <packageJsonPaths />
   </component>
   <component name="ProjectFrameBounds">
+    <option name="x" value="270" />
     <option name="y" value="23" />
-    <option name="width" value="1440" />
+    <option name="width" value="1282" />
     <option name="height" value="790" />
   </component>
   <component name="ProjectView">
@@ -209,7 +227,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -240,6 +257,12 @@
             <path>
               <item name="Monkey.TS" type="b2602c69:ProjectViewProjectNode" />
               <item name="Monkey.TS" type="462c0819:PsiDirectoryNode" />
+              <item name="lib" type="462c0819:PsiDirectoryNode" />
+              <item name="monkey.js" type="620a8d5e:NestingTreeNode" />
+            </path>
+            <path>
+              <item name="Monkey.TS" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Monkey.TS" type="462c0819:PsiDirectoryNode" />
               <item name="test" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -251,6 +274,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -265,8 +289,8 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/display" />
       <recent name="$PROJECT_DIR$/test" />
+      <recent name="$PROJECT_DIR$/display" />
       <recent name="$PROJECT_DIR$/test/imgs" />
       <recent name="$PROJECT_DIR$/lib" />
     </key>
@@ -380,26 +404,30 @@
       <workItem from="1534912821492" duration="2733000" />
       <workItem from="1534923716338" duration="484000" />
       <workItem from="1535013625133" duration="402000" />
-      <workItem from="1540300885724" duration="2457000" />
+      <workItem from="1540300885724" duration="3214000" />
+      <workItem from="1543401557388" duration="3459000" />
+      <workItem from="1543514792469" duration="7938000" />
+      <workItem from="1543562368421" duration="4965000" />
+      <workItem from="1543568358813" duration="1991000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="17360000" />
+    <option name="totallyTimeSpent" value="36470000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="23" width="1440" height="790" extended-state="0" />
+    <frame x="270" y="23" width="1282" height="790" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info anchor="bottom" id="TypeScript" order="12" />
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.29527837" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.33148295" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Event Log" order="8" side_tool="true" />
       <window_info anchor="bottom" id="Run" order="2" />
       <window_info anchor="bottom" id="Version Control" order="11" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="9" visible="true" weight="0.27128428" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="9" visible="true" weight="0.2972583" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -432,38 +460,31 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/display/MF_ImageScrollControler.ts">
+    <entry file="file://$PROJECT_DIR$/display/backgroundCanvasLayOption.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="9" column="29" selection-start-line="9" selection-start-column="6" selection-end-line="9" selection-end-column="29" />
+        <state relative-caret-position="270">
+          <caret line="18" column="13" selection-start-line="18" selection-start-column="13" selection-end-line="18" selection-end-column="13" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/utils/MF_FaceTouch.ts">
+    <entry file="file://$PROJECT_DIR$/display/MF_judge.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret line="12" column="8" selection-start-line="12" selection-start-column="8" selection-end-line="12" selection-end-column="8" />
+        <state relative-caret-position="180">
+          <caret line="12" column="21" lean-forward="true" selection-start-line="12" selection-start-column="21" selection-end-line="12" selection-end-column="21" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/utils/MF_Point.ts">
+    <entry file="file://$PROJECT_DIR$/display/MF_animateImages.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret line="14" column="25" selection-start-line="14" selection-start-column="25" selection-end-line="14" selection-end-column="25" />
+        <state relative-caret-position="2790">
+          <caret line="186" column="14" selection-start-line="186" selection-start-column="14" selection-end-line="186" selection-end-column="14" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/utils/MF_DEVICECENTER.ts">
+    <entry file="file://$PROJECT_DIR$/display/MF_Canvas.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret line="58" column="9" selection-start-line="58" selection-start-column="9" selection-end-line="58" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/Event.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret line="11" column="29" selection-start-line="11" selection-start-column="29" selection-end-line="11" selection-end-column="29" />
+        <state relative-caret-position="5715">
+          <caret line="381" column="25" lean-forward="true" selection-start-line="381" selection-start-column="25" selection-end-line="381" selection-end-column="25" />
         </state>
       </provider>
     </entry>
@@ -672,13 +693,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/utils/MF_Point.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="12" column="17" selection-start-line="12" selection-start-column="17" selection-end-line="12" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/lib/monkey.min.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="178">
@@ -721,64 +735,72 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/display/backgroundCanvasLayOption.js">
+    <entry file="file://$PROJECT_DIR$/display/backgroundCanvasLayOption.js" />
+    <entry file="file://$PROJECT_DIR$/test/test.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="45">
-          <caret line="3" lean-forward="true" selection-start-line="3" selection-end-line="3" />
+        <state relative-caret-position="384">
+          <caret line="60" column="15" lean-forward="true" selection-start-line="60" selection-start-column="15" selection-end-line="60" selection-end-column="15" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/utils/MF_FaceTouch.ts">
+    <entry file="file://$PROJECT_DIR$/utils/MF_Point.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="428">
-          <caret line="141" column="54" selection-start-line="141" selection-start-column="54" selection-end-line="141" selection-end-column="54" />
+        <state relative-caret-position="180">
+          <caret line="12" column="17" selection-start-line="12" selection-start-column="17" selection-end-line="12" selection-end-column="17" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/display/MF_ImageScrollControler.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="9" column="55" selection-start-line="9" selection-start-column="39" selection-end-line="9" selection-end-column="55" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/display/MF_ImageScroller.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="915">
-          <caret line="61" column="8" selection-start-line="61" selection-start-column="8" selection-end-line="61" selection-end-column="8" />
+        <state relative-caret-position="332">
+          <caret line="26" column="19" selection-start-line="26" selection-start-column="19" selection-end-line="26" selection-end-column="19" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/display/backgroundCanvasLayOption.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="15" column="5" lean-forward="true" selection-start-line="15" selection-start-column="5" selection-end-line="15" selection-end-column="5" />
+        <state relative-caret-position="270">
+          <caret line="18" column="13" selection-start-line="18" selection-start-column="13" selection-end-line="18" selection-end-column="13" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/display/canvasLayerOption.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="82">
-          <caret line="7" column="36" lean-forward="true" selection-start-line="7" selection-start-column="36" selection-end-line="7" selection-end-column="36" />
+        <state relative-caret-position="930">
+          <caret line="62" column="5" lean-forward="true" selection-start-line="62" selection-start-column="5" selection-end-line="62" selection-end-column="5" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/display/MF_Canvas.ts">
+    <entry file="file://$PROJECT_DIR$/display/MF_ImageScroller.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="172">
-          <caret line="192" lean-forward="true" selection-start-line="192" selection-end-line="192" />
+        <state relative-caret-position="1005">
+          <caret line="67" column="27" selection-start-line="67" selection-start-column="11" selection-end-line="67" selection-end-column="27" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/test/testmonkey.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="351">
-          <caret line="116" column="12" lean-forward="true" selection-start-line="116" selection-start-column="12" selection-end-line="116" selection-end-column="12" />
+        <state relative-caret-position="273">
+          <caret line="94" column="5" lean-forward="true" selection-start-line="94" selection-start-column="5" selection-end-line="94" selection-end-column="5" />
           <folding>
             <element signature="n#style#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#div#5;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#div#6;n#body#0;n#html#0;n#!!top" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/display/MF_Canvas.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="298">
+          <caret line="383" column="24" selection-start-line="383" selection-start-column="24" selection-end-line="383" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/utils/MF_FaceTouch.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="522">
+          <caret line="144" column="78" lean-forward="true" selection-start-line="144" selection-start-column="78" selection-end-line="144" selection-end-column="78" />
         </state>
       </provider>
     </entry>

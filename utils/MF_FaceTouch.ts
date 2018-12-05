@@ -71,6 +71,7 @@ class MF_FACETOUCH extends MF_EVENT.EventDispatcher{
                 /*[{'x':e.pageX,'y':e.pageY}]*/;
             this.element.addEventListener(MF_DEVICECENTER.TOUCH_MOVE,this.handleTouchMove);
         }
+        this.dispatchEvent(new MF_EVENT.Event('tapstart',this.lastp));
     };
     private handleTouchMove(e:any)
     {
@@ -115,6 +116,8 @@ class MF_FACETOUCH extends MF_EVENT.EventDispatcher{
         var distance=Math.sqrt(movex*movex+movey*movey);
         var angle1,angle2,anglebe:number;
         angle1=Math.atan2(movey,movex);
+        resultp.x=point2.x;
+        resultp.y=point2.y;
         resultp.offsetx=movex;
         resultp.offsety=movey;
         resultp.offsetdistance=distance;

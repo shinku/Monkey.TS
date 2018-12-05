@@ -16,7 +16,7 @@ class backgroundCanvasLayOption extends canvasLayerOption
     }
     protected canvasAddLayer ()
     {
-            console.log('!');
+           // console.log('!');
     }
 
 }

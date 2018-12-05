@@ -41,9 +41,9 @@
     </style>
 </head>
 <body >
-<div id="TEST" style="width: 100%; height: 600px"  ph_name="testtts">
+<div id="TEST" style="width: 100%; height: 600px;"  ph_name="testtts">
 </div>
-<div ph_name="zoom" class="scale">+</div>
+<div ph_name="zoom" class="scale" >+</div>
 <div ph_name="narrow" class="scale">-</div>
 <div ph_name="left" class="rotation">LEFT</div>
 <div ph_name="right" class="rotation">RIGHT</div>
@@ -67,27 +67,43 @@
         imgs:null,
     }
 
+
+    document.getElementById('TEST').addEventListener('click',function(e){
+
+
+        console.log(e.offsetX);
+        console.log(e.offsetY);
+        var x=e.offsetX;
+        var y=e.offsetY;
+
+        //console.log(all.imgs.hitTest(x,y))
+
+        var obj=all.imgs.hitTest(x,y);
+        if(obj)
+        {
+            //obj.posx+=10;
+            obj._rotation+=1;
+            obj._scale+=0.1;
+            all.imgs.update();
+        }
+
+    });
+
     function clickTest(){
 
         all.imgs.load();
     }
     function init()
     {
-
-
         //https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3803730718,1493230642&fm=27&gp=0.jpg
         all.imgs=new MF_ImageScrollControler(document.getElementById('TEST'),750,600,false,3);
         all.imgs.CanvasFilleStyle='cover';
         //资源加载完成事件
-
-
         var backimg=new Image();
         backimg.src='bg1.jpg';
         backimg.onload=function(){
             all.imgs.addBackGround(backimg,0,0);
         }
-
-
         var img=new Image();
         img.src='boymasker.png';
         img.onload=function(){
@@ -112,9 +128,9 @@
         logo1.src='logo_1.jpg';
         logo2.src='logo_2.jpg';
         //img.src='http://www.lorealparis-mediacenter.com/Content/Front/loreal/images/logo_1.jpg';
-        logo1.onload=function(e){
+        logo2.onload=function(e){
             console.log('loaded');
-            all.imgs.addLayer(img,400,0);
+            all.imgs.addLayer(logo2,400,0);
         };
 
         //console.log(logo1,logo2);

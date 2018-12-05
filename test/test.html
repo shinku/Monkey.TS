@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<script src="../lib/monkey.js"></script>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+
+        *{
+            margin: 0 0;
+        }
+        #content{
+            width: 640px;
+            height: 1080px;
+        }
+    </style>
+</head>
+<body onload="init()">
+    <div id="content"></div>
+</body>
+
+<script>
+    function init(){
+        console.log('start');
+        var loading=new MF_Loading({
+            LDpage:false,
+            LDup:handleLoading,
+            LDsuccess:handleLoaded,
+            LDtween:false
+        });
+
+        var sheetarr= loading.addImgSheet({
+            imgPrefix:'img/5_',
+            imgType:'jpg',
+            start:919,
+            length:925,
+            step:1,
+            mask:'00000'
+        });
+
+        //定义该序列帧加载的loading 函数
+        function handleLoading(e){
+            console.log("loading "+e+"%");
+        };
+        //定义该序列帧加载的loaded 函数
+        function handleLoaded(e){
+            initAnimation();//加载完成后初始化动画
+        };
+
+
+        function initAnimation(){
+            //新建动画对象，动画在canvas上实现，动画元素的父级对象为id为showAni的dom元素；序列帧数组为sheetarr
+            var sprite=new MF_animateSheet({
+                parents:document.getElementById("content"),
+                type:"canvas",
+                width:640,
+                height:1080,
+                imgList:sheetarr,
+                times:140,
+                loop:true
+            });
+            sprite.play();
+        }
+
+        loading.start();
+    }
+
+</script>
+</html>

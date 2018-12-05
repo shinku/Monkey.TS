@@ -61,6 +61,15 @@ class MF_ImageScroller extends MF_EVENT.EventDispatcher {
         var layer=new backgroundCanvasLayOption(this.mf_canvas,img,x,y);
         return layer;
     }
+    public hitTest(x,y)
+    {
+        return this.mf_canvas.chekTarget(x,y);
+    }
+    public setLayerToTheTop(layer)
+    {
+        this.mf_canvas.setLayerToTheTop(layer);
+    }
+
 
     public set x(val:number)
     {
@@ -95,6 +104,14 @@ class MF_ImageScroller extends MF_EVENT.EventDispatcher {
         return this.mf_canvas.rotation;
     }
 
+    public update(){
+        this.mf_canvas.update();
+    }
+    public removeLayer(layer)
+    {
+        this.mf_canvas.removeLayer(layer);
+        this.mf_canvas.update();
+    }
 
     public load()
     {

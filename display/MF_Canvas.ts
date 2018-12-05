@@ -238,21 +238,6 @@ class MF_Canvas extends MF_EVENT.EventDispatcher{
     }
     public drawMask(){
 
-        /*if(this._masker)
-        {
-            var m=this._masker;
-            //this.context.save();
-            //this.context.globalCompositeOperation="destination-in";
-            //console.log(m.img);
-            this.context.drawImage(m.img,0,0,
-                m.width,
-                m.height,
-                m.posx,
-                m.posy,
-                m.width,
-                m.height);
-            //this.context.restore();
-        }*/
     }
     public drawLayer(layer)
     {
@@ -265,10 +250,26 @@ class MF_Canvas extends MF_EVENT.EventDispatcher{
             this.context.globalCompositeOperation="destination-in";
             //console.log("MASK!!");
         }
-        if(layer._isbackground)
-        {
-            console.log('background!');
-        }
+        var offx=this.canvas.width/2;
+        var offy=this.canvas.height/2;
+        //this.context.translate(-offx,-offy);
+        console.log(layer.posx,layer.posy);
+
+        this.context.translate(layer.center.x,layer.center.y);
+        //this.context.translate(layer.posx,layer.posy);
+        this.context.rotate(layer._rotation/180*Math.PI);
+        this.context.scale(layer._scale,layer._scale);
+        this.context.translate(-layer.center.x,-layer.center.y);
+        //this.context.translate(layer.posx,layer.posy);
+        //this.context.translate(layer._width/2,layer._height/2);
+       // this.context.translate(offx,offy);
+        /*this.context.drawImage(layer.img,0,0,
+            layer.img.width,
+            layer.img.height,
+            layer.posx,
+            layer.posy,
+            layer.img.width,
+            layer.img.height);*/
         this.context.drawImage(layer.img,0,0,
             layer.img.width,
             layer.img.height,
@@ -340,6 +341,7 @@ class MF_Canvas extends MF_EVENT.EventDispatcher{
         //x1-=this.canvas.width/2;
         //y1-=this.canvas.height/2;
         return {ofx:x1,ofy:y1};
+
     }
     public get x():number
     {
@@ -364,7 +366,46 @@ class MF_Canvas extends MF_EVENT.EventDispatcher{
     {
         return this._y;
     }
+    public chekTarget(x,y)
+    {
 
+        var i=0;
+        var hittarget=null;
+        //console.log(this.layers.length);
+        while(i<=this.layers.length-1)
+        {
+            var target=this.layers[i];
+            if(target && target.hitTest(x,y))
+            {
+                hittarget=target;
+            }
+            i++;
+        }
+        return hittarget;
+    }
+    public removeLayer(layer)
+    {
+        for(var i =0;i<this.layers.length;i++)
+        {
+            if(layer==this.layers[i])
+            {
+                this.layers.splice(i,1);
+            }
+        }
+    }
+    public setLayerToTheTop(layer)
+    {
+        for(var i =0;i<this.layers.length;i++)
+        {
+            if(layer==this.layers[i])
+            {
+                this.layers.splice(i,1);
+                continue;
+            }
+        }
+        this.layers.push(layer);
+        this.update();
+    }
     public set rotation(val:number)
     {
         this.offsetrotate=(val-this._rotate)/180*Math.PI;
